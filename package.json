@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.0",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.17",
     "@material-tailwind/react": "^1.4.2",
@@ -19,7 +20,9 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "style-component": "^0.0.1",
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

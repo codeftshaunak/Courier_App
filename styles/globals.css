@@ -115,6 +115,38 @@ a {
 .color{
   color: black;
 }
+.about{
+  background-color: black;
+}
+
+.about-image{
+  background-image: url(../public/about.jpg);
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.5;
+}
+
+.about-content{
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.text-about-content h1{
+  font-size: 5rem;
+  font-weight: 100;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
