@@ -112,3 +112,27 @@ export const userCourierOrders = async () => {
         return console.log(error)
     }
 }
+
+
+//Rise a complaint
+export const RiseComplaint = async (order_id) => {
+    const accessToken = localStorage.getItem('accessToken');
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/users/api/accounts/complaint-raise`,
+            {
+                order_id: order_id
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            }
+        );
+        const data = await response.data;
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+};

@@ -8,7 +8,7 @@ const UserComplaints = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await userComplaints();
-            setUserComplaint(data.results)
+            setUserComplaint(data?.results)
         }
         fetchData()
     }, []);
@@ -33,6 +33,9 @@ const UserComplaints = () => {
                         <th scope="col" class="px-6 py-3 rounded-r-lg">
                             Complainer Status
                         </th>
+                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                            Rise A Complain
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,16 +58,14 @@ const UserComplaints = () => {
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {data.complaint_issuser[0].is_customer ? "Coustomer" : "Not Coustomer"}
                                 </th>
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <button>Complain Now</button>
+                                </th>
                             </tr>
                         })
                     }
                 </tbody>
-
             </table>
-
-
-
-
         </Layout>
     )
 }

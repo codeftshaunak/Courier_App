@@ -1,3 +1,4 @@
+import BASE_URL from '@/public/config';
 import Layout from '@/src/components/Dashboard/Layout';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -32,7 +33,7 @@ const EditOrder = () => {
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
         async function fetchData() {
-            const res = await fetch(`http://65.0.3.25:8000/appadmins/orders/${id}/`, {
+            const res = await fetch(`${BASE_URL}/appadmins/orders/${id}/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -49,7 +50,7 @@ const EditOrder = () => {
         console.log(formData);
         const accessToken = localStorage.getItem('accessToken');
         try {
-            const res = await fetch(`http://65.0.3.25:8000/appadmins/orders/${id}/`, {
+            const res = await fetch(`${BASE_URL}/appadmins/orders/${id}/`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,

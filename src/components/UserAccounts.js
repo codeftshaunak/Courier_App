@@ -8,7 +8,7 @@ const UserAccounts = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await userAccounts();
-            setUserAccount(data.results);
+            setUserAccount(data?.results);
         };
 
         fetchData();
