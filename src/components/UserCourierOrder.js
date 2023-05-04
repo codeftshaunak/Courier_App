@@ -38,6 +38,9 @@ const UserCourierOrder = () => {
                         <th scope="col" class="px-6 py-3 rounded-r-lg">
                             Rise Complaint
                         </th>
+                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                            Edit Data
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

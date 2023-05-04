@@ -33,9 +33,9 @@ const UserComplaints = () => {
                         <th scope="col" class="px-6 py-3 rounded-r-lg">
                             Complainer Status
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        {/* <th scope="col" class="px-6 py-3 rounded-r-lg">
                             Rise A Complain
-                        </th>
+                        </th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -44,23 +44,23 @@ const UserComplaints = () => {
                         userComplaint?.map((data) => {
                             return <tr class="bg-white dark:bg-gray-800">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {data.amount}
+                                    {data.amount ? data.amount : "No Amount"}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {data.complaint_issued ? "Yes" : "No"}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {data.complaint_issued ? data.complaint_issuser[0].first_name : "No One Complaint"}
+                                    {data.complaint_issued ? data.complaint_issuser[0]?.first_name : "No One Complaint"}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {data.complaint_resolver[0].first_name}
+                                    {data.complaint_resolver}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {data.complaint_issuser[0].is_customer ? "Coustomer" : "Not Coustomer"}
+                                    {data.complaint_issuser[0]?.is_customer ? "Coustomer" : "Not Coustomer"}
                                 </th>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {/* <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <button>Complain Now</button>
-                                </th>
+                                </th> */}
                             </tr>
                         })
                     }

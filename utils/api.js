@@ -116,6 +116,7 @@ export const userCourierOrders = async () => {
 
 //Rise a complaint
 export const RiseComplaint = async (order_id) => {
+    console.log(order_id);
     const accessToken = localStorage.getItem('accessToken');
     try {
         const response = await axios.post(
@@ -133,6 +134,24 @@ export const RiseComplaint = async (order_id) => {
         return data;
     }
     catch (error) {
+        console.log(error);
+    }
+};
+
+//resolveComplain
+export const ResolveComplaint = async (awb_number) => {
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(accessToken);
+    try {
+        const response = await axios.patch(`${BASE_URL}/users/accounts/${awb_number}/resolve_complaint/`, null, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        const data = await response.data;
+        console.log(data);
+        return data;
+    } catch (error) {
         console.log(error);
     }
 };

@@ -1,8 +1,22 @@
+import { RiseComplaint } from "@/utils/api";
+import { useRouter } from "next/router";
 import React from "react";
 import "tailwindcss/tailwind.css";
 
+const riseComplaint = (awb_number) => {
+    const fetchData = async () => {
+        const data = await RiseComplaint(awb_number);
+        alert(data?.success)
+    }
+    fetchData();
+}
+
+
 const UserCourierOrderCard = ({ data }) => {
-    console.log(data);
+    const router = useRouter();
+    const editData = (id) => {
+        router.push(`/appadmins/${id}`);
+    }
     const { order_type, awb_number, status, delivery_date, shipment_date } = data;
     return (
         <tr class="bg-white dark:bg-gray-800">
@@ -21,10 +35,16 @@ const UserCourierOrderCard = ({ data }) => {
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {shipment_date}
             </th>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center">
-                Rise Complaint
-            </button>
-
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => riseComplaint(awb_number)}>
+                    Rise Complaint
+                </button>
+            </th>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => editData(awb_number)}>
+                    Edit
+                </button>
+            </th>
         </tr>
     );
 };
