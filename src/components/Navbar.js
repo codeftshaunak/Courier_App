@@ -7,6 +7,8 @@ const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: 'about' },
     { name: 'Contact Us', href: 'contact' },
+    { name: 'Dashboard', href: 'dashboard' },
+
 ]
 
 export default function Navbar() {
@@ -98,6 +100,9 @@ export default function Navbar() {
                                     >
                                         Sign In
                                     </a>
+                                    <button onClick={() => setOpen(true)} className="text-sm font-semibold leading-6 text-gray-900">
+                                        Track Now <span aria-hidden="true">&rarr;</span>
+                                    </button>
 
                                 </div>
                             </div>
