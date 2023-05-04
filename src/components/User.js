@@ -9,7 +9,7 @@ const User = () => {
         <Layout>
             <div className="userAccounts">
                 <h1>User Accounts</h1>
-                <UserAccounts />
+                {/* <UserAccounts /> */}
             </div>
             <div className="userComplaints">
                 <h1>User Complaints</h1>
