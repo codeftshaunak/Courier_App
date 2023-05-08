@@ -41,9 +41,9 @@ const UserComplaints = () => {
                         <th scope="col" class="px-6 py-3 rounded-r-lg">
                             Complainer Status
                         </th>
-                        {/* <th scope="col" class="px-6 py-3 rounded-r-lg">
-                            Rise A Complain
-                        </th> */}
+                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                            Resolve Complain
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
