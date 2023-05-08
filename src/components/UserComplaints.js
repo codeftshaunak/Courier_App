@@ -4,7 +4,7 @@ import Layout from './Dashboard/Layout';
 
 const UserComplaints = () => {
     const [userComplaint, setUserComplaint] = useState([]);
-    console.log(userComplaint);
+    // console.log(userComplaint);
     useEffect(() => {
         const fetchData = async () => {
             const data = await userComplaints();
@@ -12,6 +12,14 @@ const UserComplaints = () => {
         }
         fetchData()
     }, []);
+
+    const resolveComplaint = (awb_number) => {
+        const fetchData = async () => {
+            const data = await ResolveComplaint(awb_number);
+            alert(data.status);
+        }
+        fetchData();
+    }
 
     return (
         <Layout>
@@ -58,9 +66,9 @@ const UserComplaints = () => {
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {data.complaint_issuser[0]?.is_customer ? "Coustomer" : "Not Coustomer"}
                                 </th>
-                                {/* <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <button>Complain Now</button>
-                                </th> */}
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => resolveComplaint(awb_number)}>
+                                    Resolve Issue
+                                </button>
                             </tr>
                         })
                     }

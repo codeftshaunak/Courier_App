@@ -24,16 +24,16 @@ const UserAccounts = () => {
     //     fetchData();
     // }
 
-    const resolveComplaint = (awb_number) => {
-        const fetchData = async () => {
-            const data = await ResolveComplaint(awb_number);
-            alert(data.status);
-        }
-        fetchData();
-    }
+    // const resolveComplaint = (awb_number) => {
+    //     const fetchData = async () => {
+    //         const data = await ResolveComplaint(awb_number);
+    //         alert(data.status);
+    //     }
+    //     fetchData();
+    // }
 
 
-    console.log(userAccount);
+    // console.log(userAccount);
 
     return (
         <Layout>
@@ -81,9 +81,9 @@ const UserAccounts = () => {
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {data.complaint_issuser[0].is_customer ? "Coustomer" : "Not Coustomer"}
                                 </th>
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => resolveComplaint(awb_number)}>
+                                {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => resolveComplaint(awb_number)}>
                                     Resolve Issue
-                                </button>
+                                </button> */}
                             </tr>
                         })
                     }
