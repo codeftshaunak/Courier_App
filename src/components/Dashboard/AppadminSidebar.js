@@ -17,7 +17,7 @@ const AppadminSidebar = () => {
     const Menus = [
         { title: 'Home', path: '/', src: <CgProfile /> },
         { title: 'Appadmins', path: '/appadmins', src: <SiFuturelearn /> },
-        { title: 'adminlogin', path: '/admin', src: <SiOpenaccess />, gap: 'true' },
+        { title: 'Adminlogin', path: '/admin', src: <SiOpenaccess />, gap: 'true' },
     ]
 
     return (

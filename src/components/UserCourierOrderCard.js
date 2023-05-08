@@ -15,7 +15,7 @@ const riseComplaint = (awb_number) => {
 const UserCourierOrderCard = ({ data }) => {
     const router = useRouter();
     const editData = (id) => {
-        router.push(`/appadmins/${id}`);
+        router.push(`/userorders/${id}`);
     }
     const { order_type, awb_number, status, delivery_date, shipment_date } = data;
     return (

@@ -30,6 +30,17 @@ export const signIn = async (username, password) => {
     }
 };
 
+//post for adminsignin
+export const adminSignIn = async (username, password) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/appadmins/api/admin/token`, { username, password });
+        const data = await response.data;
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //post for update order
 // export const appAdminOrderUpdate = async (key, value) => {
 //     const accessToken = localStorage.getItem('accessToken');

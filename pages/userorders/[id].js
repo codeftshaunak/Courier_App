@@ -4,7 +4,7 @@ import Layout from '@/src/components/Dashboard/Layout';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
-const EditOrder = () => {
+const EditUserOrder = () => {
     const router = useRouter();
     const { id } = router.query;
     const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ const EditOrder = () => {
     };
 
     return (
-        <AppadminLayout>
+        <Layout>
             <h1>Edit Order {id}</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -148,8 +148,8 @@ const EditOrder = () => {
                 </div>
                 <button type="submit">Update Order</button>
             </form>
-        </AppadminLayout>
+        </Layout>
     );
 };
 
-export default EditOrder;
+export default EditUserOrder;

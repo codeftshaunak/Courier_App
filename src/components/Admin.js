@@ -3,7 +3,7 @@ import LayoutComponent from '../layout/LayoutComponent'
 import { Typography } from "@material-tailwind/react";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { signIn } from '@/utils/api';
+import { adminSignIn } from '@/utils/api';
 
 export default function Admin() {
     const [username, setUsername] = useState('');
@@ -13,7 +13,7 @@ export default function Admin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await signIn(username, password);
+            const response = await adminSignIn(username, password);
             // Store the access token in localStorage
             localStorage.setItem('accessToken', response.access);
 
@@ -23,7 +23,7 @@ export default function Admin() {
             alert("SignIn Successful");
 
             // Navigate to the home page after successful login
-            router.push('/');
+            router.push('/admindashboard');
 
         } catch (error) {
             console.error(error);
