@@ -1,20 +1,30 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
-const navigation = [
+let navigation = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: 'about' },
     { name: 'Contact Us', href: 'contact' },
-    { name: 'Dashboard', href: 'dashboard' },
-
 ]
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [open, setOpen] = useState(false)
-    const cancelButtonRef = useRef(null)
+    const cancelButtonRef = useRef(null);
+    const [accessToken, setAccessToken] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('accessToken');
+            setAccessToken(token);
+        }
+    }, []);
+
+    const updatedNavigation = accessToken
+        ? [...navigation, { name: 'Dashboard', href: 'dashboard' }]
+        : navigation;
 
     return (
         <div className="bg-white overflow-hidden">
@@ -41,11 +51,12 @@ export default function Navbar() {
                         </button>
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
-                        {navigation.map((item) => (
+                        {updatedNavigation.map((item) => (
                             <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
                                 {item.name}
                             </a>
                         ))}
+
                     </div>
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -83,15 +94,12 @@ export default function Navbar() {
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    {navigation.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                        >
+                                    {updatedNavigation.map((item) => (
+                                        <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
                                             {item.name}
                                         </a>
                                     ))}
+
                                 </div>
                                 <div className="py-6">
                                     <a

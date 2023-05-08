@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Layout from "./Dashboard/Layout";
-import HeroDashbord from "./Dashboard/HeroDashbord";
-import AppadminCard from "./AppadminCard";
 import BASE_URL from "@/public/config";
-import { AiOutlineEdit } from "react-icons/ai";
 import { useRouter } from "next/router";
+import AdminDashboard from "./AdminDashboard";
 // import AppadminsFilter from './AppadminsFilter';
 
 export const AppadminsFilter = ({
@@ -95,7 +92,7 @@ const Appadmins = () => {
     }, []);
 
     return (
-        <Layout>
+        <AdminDashboard>
             <div className='flex justify-around flex-col'>
                 <div className='flex justify-around flex-wrap'>
                     <AppadminsFilter
@@ -184,7 +181,7 @@ const Appadmins = () => {
                     </table>
                 </div>
             </div>
-        </Layout>
+        </AdminDashboard>
     );
 };
 

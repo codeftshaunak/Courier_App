@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiFillPieChart } from 'react-icons/ai'
+import { SiFuturelearn } from 'react-icons/si'
 import { SiOpenaccess } from 'react-icons/si'
 import { CgProfile } from 'react-icons/cg'
 import NextLink from 'next/link'
@@ -8,17 +9,15 @@ import { useRouter } from 'next/router'
 import HumburgerButton from './HumburgerMenu/HumburgerButton'
 
 
-const Sidebar = () => {
+const AppadminSidebar = () => {
     const [open, setOpen] = useState(true)
     const [mobileMenu, setMobileMenu] = useState(false)
     const router = useRouter();
 
     const Menus = [
-        { title: 'Dashboard', path: '/dashboard', src: <AiFillPieChart /> },
-        { title: 'User Account', path: '/useraccount', src: <CgProfile /> },
-        { title: 'User Complaint', path: '/usercomplaint', src: <CgProfile /> },
-        { title: 'User Orders', path: '/userorders', src: <CgProfile /> },
-        { title: 'Signin', path: '/signin', src: <SiOpenaccess />, gap: 'true' },
+        { title: 'Home', path: '/', src: <CgProfile /> },
+        { title: 'Appadmins', path: '/appadmins', src: <SiFuturelearn /> },
+        { title: 'adminlogin', path: '/admin', src: <SiOpenaccess />, gap: 'true' },
     ]
 
     return (
@@ -91,4 +90,4 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar;
+export default AppadminSidebar;
