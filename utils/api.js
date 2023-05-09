@@ -166,3 +166,21 @@ export const ResolveComplaint = async (awb_number) => {
         console.log(error);
     }
 };
+
+//appadmin userslist 
+export const usersList = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    try {
+        const response = await axios.fetch(`${BASE_URL}/appadmins/customers/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        const data = await response.data;
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+
+}
