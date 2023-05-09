@@ -61,7 +61,6 @@ const UserAccounts = () => {
                     </tr>
                 </thead>
                 <tbody>
-
                     {
                         userAccount?.map((data) => {
                             const awb_number = data.order[0].awb_number;
@@ -85,7 +84,6 @@ const UserAccounts = () => {
                         })
                     }
                 </tbody>
-
             </table>
         </Layout>
     )

@@ -74,6 +74,7 @@ const UserComplaints = () => {
                     }
                 </tbody>
             </table>
+
         </Layout>
     )
 }

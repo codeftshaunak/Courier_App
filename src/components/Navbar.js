@@ -119,7 +119,6 @@ export default function Navbar() {
                 </Dialog>
 
 
-
                 <Transition.Root show={open} as={Fragment}>
                     <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                         <Transition.Child
