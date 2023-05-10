@@ -3,6 +3,7 @@ import AppadminLayout from './Dashboard/AppadminLayout';
 import { usersList } from '@/utils/api';
 import BASE_URL from '@/public/config';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 
 export const CustomerFilter = ({
@@ -45,6 +46,7 @@ const Coustomer = () => {
     const [coustomers, setCoustomers] = useState([]);
     const [searchKey, setSearchKey] = useState("");
     const [searchValue, setSearchValue] = useState("");
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -80,7 +82,7 @@ const Coustomer = () => {
     };
 
     const handleEdit = (id) => {
-        alert(id)
+        router.push(`/coustomers/${id}`);
     }
 
     return (

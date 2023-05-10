@@ -1,6 +1,5 @@
 import BASE_URL from '@/public/config';
 import AppadminLayout from '@/src/components/Dashboard/AppadminLayout';
-import Layout from '@/src/components/Dashboard/Layout';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
