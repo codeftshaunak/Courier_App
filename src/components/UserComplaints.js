@@ -1,4 +1,4 @@
-import { userComplaints } from '@/utils/api';
+import { ResolveComplaint, userComplaints } from '@/utils/api';
 import React, { useEffect, useState } from 'react'
 import Layout from './Dashboard/Layout';
 
@@ -50,7 +50,9 @@ const UserComplaints = () => {
 
                     {
                         userComplaint?.map((data) => {
-                            return <tr class="bg-white dark:bg-gray-800">
+                            // console.log(data.order[0].awb_number);
+                            const awb_number = data?.order[0]?.awb_number
+                            return <tr class="bg-white dark:bg-gray-800" key={data.order[0].awb_number}>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {data.amount ? data.amount : "No Amount"}
                                 </th>
