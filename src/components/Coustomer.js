@@ -177,6 +177,9 @@ const Coustomer = () => {
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.is_verified ? "Verified" : "Not Verified"}
                                     </th>
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => resolveComplaint(awb_number)}>
+                                        Edit
+                                    </button>
                                 </tr>
                             )
                         })
