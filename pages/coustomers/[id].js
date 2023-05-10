@@ -12,6 +12,12 @@ const EditCustomer = () => {
         is_verified: "",
         is_active: ""
     });
+    console.log(customer);
+
+    useEffect(() => {
+        customer.is_active = data.is_active;
+        customer.is_verified = data.is_verified;
+    }, [data]);
 
     useEffect(() => {
         const accessToken = localStorage.getItem("accessToken");
@@ -30,11 +36,11 @@ const EditCustomer = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios
-            .put(`${BASE_URL}/appadmins/customers/${id}/`, customer)
+        axios.patch(`${BASE_URL}/appadmins/customers/${id}/`, customer)
             .then((response) => {
                 console.log(response.data);
                 // handle success
+                router.push('/coustomers')
             })
             .catch((error) => {
                 console.error(error);
@@ -59,11 +65,12 @@ const EditCustomer = () => {
                             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             id="user-verified"
                             name="is_verified"
-                            value={customer.is_verified}
+                            defaultValue={data.is_verified}
                             onChange={handleInputChange}
                         >
-                            <option value="verified">Verified</option>
-                            <option value="unverified">Unverified</option>
+                            <option>Select Any Option</option>
+                            <option value="true">Verified</option>
+                            <option value="False">Unverified</option>
                         </select>
                         <br />
                         <label htmlFor="#">STATUS</label>
@@ -71,11 +78,12 @@ const EditCustomer = () => {
                             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             id="status"
                             name="is_active"
-                            value={customer.is_active}
+                            defaultValue={data.is_active}
                             onChange={handleInputChange}
                         >
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option>Select Any Option</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
                         </select>
                         <br />
                         <button type="submit">Update</button>
