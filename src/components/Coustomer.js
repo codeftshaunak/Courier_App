@@ -54,25 +54,6 @@ const Coustomer = () => {
         fetchData();
     }, []);
 
-    // function handleSearch(event) {
-    //     event.preventDefault();
-    //     const searchId = event.target.elements['search-id'].value;
-    //     const url = `${BASE_URL}/appadmins/customers/${searchId}/`;
-    //     const accessToken = localStorage.getItem('accessToken');
-
-    //     axios.get(url, {
-    //         headers: {
-    //             Authorization: `Bearer ${accessToken}`,
-    //         },
-    //     }).then((response) => {
-    //         const data = Array.isArray(response.data) ? response.data : [response.data];
-    //         setCoustomers(data);
-    //     })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
-
     const appAdminsOrder = async () => {
         const accessToken = localStorage.getItem("accessToken");
         try {
@@ -92,32 +73,19 @@ const Coustomer = () => {
         }
     };
 
-
     const handleEnter = (searchKey) => {
         setSearchKey(searchKey);
         appAdminsOrder();
         setSearchValue("");
     };
 
+    const handleEdit = (id) => {
+        alert(id)
+    }
+
     return (
         <AppadminLayout>
             <div className="mt-2.5">
-                {/* <form onSubmit={handleSearch}>
-                    <label htmlFor="search-id" className="block text-sm font-semibold leading-6 text-white">
-                        Search User By Id
-                    </label>
-                    <input
-                        type="text"
-                        name="search-id"
-                        id="search-id"
-                        autoComplete="off"
-                        className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                    />
-                    <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-md mt-2">
-                        Search
-                    </button>
-                </form> */}
-
                 <div className='flex justify-around flex-col'>
                     <div className='flex justify-around flex-wrap'>
                         <CustomerFilter
@@ -177,7 +145,7 @@ const Coustomer = () => {
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.is_verified ? "Verified" : "Not Verified"}
                                     </th>
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => resolveComplaint(awb_number)}>
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => handleEdit(user.id)}>
                                         Edit
                                     </button>
                                 </tr>
