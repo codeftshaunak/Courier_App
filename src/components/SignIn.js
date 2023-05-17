@@ -14,6 +14,8 @@ export default function SignIn() {
         e.preventDefault();
         try {
             const response = await signIn(username, password);
+
+            console.log(response);
             // Store the access token in localStorage
             localStorage.setItem('accessToken', response.access);
 
