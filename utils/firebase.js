@@ -14,7 +14,13 @@ const firebaseConfig = {
   measurementId: "G-RH4VNVLJ45"
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
 
+let messaging = null;
+
+if (typeof window !== 'undefined') {
+  // Initialize Firebase only on the client-side
+  const app = initializeApp(firebaseConfig);
+  messaging = getMessaging(app);
+}
+
+export { messaging };

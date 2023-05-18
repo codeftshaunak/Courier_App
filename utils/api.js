@@ -58,7 +58,6 @@ export const adminSignIn = async (username, password) => {
 // };
 
 
-
 //get appadmins
 export const appAdminsOrder = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -95,7 +94,7 @@ export const userAccounts = async () => {
 export const userComplaints = async () => {
     const accessToken = localStorage.getItem('accessToken');
     try {
-        const response = await fetch(`${BASE_URL}/users/api/accounts/complaints`, {
+        const response = await fetch(`${BASE_URL}/users/api/complaints`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             },
@@ -131,7 +130,7 @@ export const RiseComplaint = async (order_id) => {
     const accessToken = localStorage.getItem('accessToken');
     try {
         const response = await axios.post(
-            `${BASE_URL}/users/api/accounts/complaint-raise`,
+            `${BASE_URL}/users/api/complaint-raise`,
             {
                 order_id: order_id
             },

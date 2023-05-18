@@ -113,22 +113,22 @@ const Coustomer = () => {
             </div>
 
             <br />
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             User Name
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" className="px-6 py-3">
                             Company Name
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Status
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Verified
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Edit
                         </th>
                     </tr>
@@ -137,20 +137,20 @@ const Coustomer = () => {
                     {
                         coustomers?.map((user) => {
                             return (
-                                <tr class="bg-white dark:bg-gray-800" key={user.id}>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <tr className="bg-white dark:bg-gray-800" key={user.id}>
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.first_name ? `${user.first_name} '' ${user.last_name}` : "Dummy User"}
                                     </th>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.company_name}
                                     </th>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.is_active ? "Active" : "Not Active"}
                                     </th>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.is_verified ? "Verified" : "Not Verified"}
                                     </th>
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => handleEdit(user.id)}>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => handleEdit(user.id)}>
                                         Edit
                                     </button>
                                 </tr>

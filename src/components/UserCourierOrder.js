@@ -4,6 +4,7 @@ import UserCourierOrderCard from './UserCourierOrderCard';
 import Layout from './Dashboard/Layout';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import BASE_URL from '@/public/config';
 
 const UserCourierOrder = () => {
     const [userCourierOrder, setuserCourierOrder] = useState([]);
@@ -11,7 +12,7 @@ const UserCourierOrder = () => {
     const cancelButtonRef = useRef(null);
 
     const [formData, setFormData] = useState({
-        order_type: 'logistics',
+        order_type: '',
         origin: '',
         origin_pincode: '',
         destination: '',
@@ -36,32 +37,27 @@ const UserCourierOrder = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // if (!file) {
-        //     console.log('No file selected');
-        //     return;
-        // }
-
-        const formData = new FormData();
-        formData.append('order_type', formData.order_type);
-        formData.append('origin', formData.origin);
-        formData.append('origin_pincode', formData.origin_pincode);
-        formData.append('destination', formData.destination);
-        formData.append('destination_pincode', formData.destination_pincode);
-        formData.append('Category', formData.Category);
-        formData.append('return_address', formData.return_address);
-        formData.append('return_address_pincode', formData.return_address_pincode);
-        formData.append('courier_company', formData.courier_company);
-        formData.append('file', file);
+        const formDataObj = new FormData();
+        formDataObj.append('order_type', formData.order_type);
+        formDataObj.append('origin', formData.origin);
+        formDataObj.append('origin_pincode', formData.origin_pincode);
+        formDataObj.append('destination', formData.destination);
+        formDataObj.append('destination_pincode', formData.destination_pincode);
+        formDataObj.append('Category', formData.Category);
+        formDataObj.append('return_address', formData.return_address);
+        formDataObj.append('return_address_pincode', formData.return_address_pincode);
+        formDataObj.append('courier_company', formData.courier_company);
+        formDataObj.append('file', file);
         const authToken = localStorage.getItem("accessToken");
-        const response = await fetch('https://35.154.44.25:8000/users/api/orders/courier/', {
+        const response = await fetch(`${BASE_URL}/users/api/orders/courier/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 Authorization: `Bearer ${authToken}`,
             },
-            body: formData
+            body: formDataObj
         });
+        console.log(formDataObj);
 
         const responseData = await response.json();
         console.log(responseData);
@@ -72,6 +68,7 @@ const UserCourierOrder = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await userCourierOrders();
+            console.log(data);
             setuserCourierOrder(data.results);
         };
 
@@ -80,28 +77,28 @@ const UserCourierOrder = () => {
 
     return (
         <Layout>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Order Type
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" className="px-6 py-3">
                             Awb number
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Status
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Delivery date
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Shipment date
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Rise Complaint
                         </th>
-                        <th scope="col" class="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Edit Data
                         </th>
                     </tr>
@@ -117,7 +114,7 @@ const UserCourierOrder = () => {
             </table>
             <br />
 
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => setOpen(true)}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => setOpen(true)}>
                 Add A New Order
             </button>
 
@@ -193,7 +190,7 @@ const UserCourierOrder = () => {
                                                                 name="origin"
                                                                 id="first-name"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 value={formData.origin} onChange={handleChange}
                                                             />
                                                         </div>
@@ -206,7 +203,7 @@ const UserCourierOrder = () => {
                                                                 name="origin_pincode"
                                                                 id="first-name"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 value={formData.origin_pincode} onChange={handleChange} />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -217,7 +214,7 @@ const UserCourierOrder = () => {
                                                                 type="text"
                                                                 name="destination"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 value={formData.destination} onChange={handleChange} />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -228,7 +225,7 @@ const UserCourierOrder = () => {
                                                                 type="text"
                                                                 name="destination_pincode"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 value={formData.destination_pincode} onChange={handleChange} />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -239,7 +236,7 @@ const UserCourierOrder = () => {
                                                                 type="text"
                                                                 name="Category"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 value={formData.Category} onChange={handleChange} />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -249,7 +246,7 @@ const UserCourierOrder = () => {
                                                             <input
                                                                 type="text"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 name="return_address" value={formData.return_address} onChange={handleChange}
                                                             />
                                                         </div>
@@ -260,7 +257,7 @@ const UserCourierOrder = () => {
                                                             <input
                                                                 type="text"
                                                                 autoComplete="given-name"
-                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
                                                                 name="return_address_pincode" value={formData.return_address_pincode} onChange={handleChange} />
                                                         </div>
                                                         <h1 className='text-center text-black'>OR</h1>
