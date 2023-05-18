@@ -9,32 +9,32 @@ const EditUserOrder = () => {
     const { id } = router.query;
     const [formData, setFormData] = useState({
         courier_company: '',
-        status: '',
-        shipment_date: '',
         order_type: '',
         destination: '',
-        destination_pincode: ''
+        destination_pincode: '',
+        return_address: '',
+        return_address_pincode: '',
     });
 
     const [data, setData] = useState([]);
 
-    const { awb_number, courier_company, status, shipment_date, order_type, destination, destination_pincode } = data;
+    const { awb_number, courier_company, order_type, destination, destination_pincode, return_address, return_address_pincode } = data;
     console.log(order_type);
     console.log(formData.order_type);
     useEffect(() => {
         formData.courier_company = courier_company,
-            formData.status = status,
-            formData.shipment_date = shipment_date,
             formData.order_type = order_type,
             formData.destination = destination,
-            formData.destination_pincode = destination_pincode
+            formData.destination_pincode = destination_pincode,
+            formData.return_address = return_address,
+            formData.return_address_pincode = return_address_pincode
     }, [data])
 
     // Fetch order data on component mount
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
         async function fetchData() {
-            const res = await fetch(`${BASE_URL}/appadmins/orders/${id}/`, {
+            const res = await fetch(`${BASE_URL}/users/api/orders/update/${id}/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -51,7 +51,7 @@ const EditUserOrder = () => {
         console.log(formData);
         const accessToken = localStorage.getItem('accessToken');
         try {
-            const res = await fetch(`${BASE_URL}/appadmins/orders/${id}/`, {
+            const res = await fetch(`${BASE_URL}/users/api/orders/update/${id}/`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -60,7 +60,7 @@ const EditUserOrder = () => {
                 body: JSON.stringify(formData),
             });
             if (res.ok) {
-                router.push('/appadmins');
+                router.push('/userorders');
             } else {
                 throw new Error('Error updating order');
             }
@@ -82,72 +82,81 @@ const EditUserOrder = () => {
 
     return (
         <Layout>
-            <h1>Edit Order {id}</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="awb_number">AWB Number:</label>
-                    {awb_number}
+            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="mb-4">
+                    <label htmlFor="awb_number" className="block text-gray-700 font-bold mb-2">AWB Number:</label>
+                    <span className="text-gray-700">{awb_number}</span>
                 </div>
-                <div>
-                    <label htmlFor="order_type">Order Type</label>
-                    <select name="order_type" onChange={handleChange}>
-                        <option defaultValue={formData.order_type}>{formData.order_type}</option>
-                        {
-                            formData.order_type == "logistics" ? <option value="third_party">Third Party</option>
-                                : <option value="logistics">Logistic</option>
-                        }
+                <div className="mb-4">
+                    <label htmlFor="order_type" className="block text-gray-700 font-bold mb-2">Order Type:</label>
+                    <select name="order_type" value={formData.order_type} onChange={handleChange} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option disabled>Current Order Type: {formData.order_type}</option>
+                        {formData.order_type === "logistics" ? (
+                            <>
+                                <option value="logistics">Logistic</option>
+                                <option value="third_party">Third Party</option>
+                            </>
+                        ) : (
+                            <>
+                                <option value="third_party">Third Party</option>
+                                <option value="logistics">Logistic</option>
+                            </>
+                        )}
                     </select>
                 </div>
-                <div>
-                    <label htmlFor="courier_company">Courier Company:</label>
+                <div className="mb-4">
+                    <label htmlFor="courier_company" className="block text-gray-700 font-bold mb-2">Courier Company:</label>
                     <input
                         type="text"
                         name="courier_company"
                         defaultValue={formData.courier_company}
                         onChange={handleChange}
+                        className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     />
                 </div>
-                <div>
-                    <label htmlFor="status">Status:</label>
-                    <select name="status" onChange={handleChange}>
-                        <option defaultValue={formData.status}>{formData.status}</option>
-                        <option value="preparing">Preparing</option>
-                        <option value="manifested">Manifested</option>
-                        <option value="in_transit">In_transit</option>
-                        <option value="out_for_delivery">Out for Delivery</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="shipment_date">Shipment Date:</label>
-                    <input
-                        type="text"
-                        name="shipment_date"
-                        defaultValue={formData.shipment_date}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="destination">Destination:</label>
+                <div className="mb-4">
+                    <label htmlFor="destination" className="block text-gray-700 font-bold mb-2">Destination:</label>
                     <input
                         type="text"
                         name="destination"
                         defaultValue={formData.destination}
                         onChange={handleChange}
+                        className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     />
                 </div>
-                <div>
-                    <label htmlFor="destination">Destination Pincode:</label>
+                <div className="mb-4">
+                    <label htmlFor="destination_pincode" className="block text-gray-700 font-bold mb-2">Destination Pincode:</label>
                     <input
                         type="text"
-                        name="destination"
+                        name="destination_pincode"
                         defaultValue={formData.destination_pincode}
                         onChange={handleChange}
+                        className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     />
                 </div>
-                <button type="submit">Update Order</button>
+                <div className="mb-4">
+                    <label htmlFor="return_address" className="block text-gray-700 font-bold mb-2">Return Address:</label>
+                    <input
+                        type="text"
+                        name="return_address"
+                        defaultValue={formData.return_address}
+                        onChange={handleChange}
+                        className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="return_address_pincode" className="block text-gray-700 font-bold mb-2">Return Address Pincode:</label>
+                    <input
+                        type="text"
+                        name="return_address_pincode"
+                        defaultValue={formData.return_address_pincode}
+                        onChange={handleChange}
+                        className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    />
+                </div>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Order</button>
             </form>
+
         </Layout>
     );
 };

@@ -89,9 +89,9 @@ const UserCourierOrder = () => {
                         <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Status
                         </th>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
+                        {/* <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Delivery date
-                        </th>
+                        </th> */}
                         <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Shipment date
                         </th>

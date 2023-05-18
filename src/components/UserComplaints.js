@@ -16,7 +16,7 @@ const UserComplaints = () => {
     const resolveComplaint = (awb_number) => {
         const fetchData = async () => {
             const data = await ResolveComplaint(awb_number);
-            console.log(data)
+            alert(data.status);
         }
         fetchData();
     }

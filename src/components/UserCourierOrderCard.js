@@ -17,7 +17,7 @@ const UserCourierOrderCard = ({ data }) => {
     const editData = (id) => {
         router.push(`/userorders/${id}`);
     }
-    const { order_type, awb_number, status, delivery_date, shipment_date } = data;
+    const { order_type, awb_number, status, shipment_date } = data;
     return (
         <tr className="bg-white dark:bg-gray-800">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -28,9 +28,6 @@ const UserCourierOrderCard = ({ data }) => {
             </th>
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {status}
-            </th>
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {delivery_date}
             </th>
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {shipment_date}
