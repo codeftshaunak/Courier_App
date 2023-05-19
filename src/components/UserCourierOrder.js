@@ -5,11 +5,17 @@ import Layout from './Dashboard/Layout';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import BASE_URL from '@/public/config';
+import axios from 'axios';
 
 const UserCourierOrder = () => {
     const [userCourierOrder, setuserCourierOrder] = useState([]);
     const [open, setOpen] = useState(false)
     const cancelButtonRef = useRef(null);
+    const [orderType, setOrderType] = useState('');
+    const [orderAwbNumber, setOrderAwbNumber] = useState('');
+    const [orderCourierCompany, setOrderCourierCompany] = useState('');
+    const [orderCourierStatus, setOrderCourierStatus] = useState('');
+    const [shipmentDate, setShipmentData] = useState('');
 
     const [formData, setFormData] = useState({
         order_type: '',
@@ -64,19 +70,178 @@ const UserCourierOrder = () => {
     };
 
 
+    const handleSubmitSearch = async (e) => {
+        e.preventDefault();
+
+        try {
+            const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
+
+            const params = {};
+
+            if (orderType) {
+                params['order_type'] = orderType;
+            }
+
+            if (orderAwbNumber) {
+                params['awb_number'] = orderAwbNumber;
+            }
+
+            if (orderCourierCompany) {
+                params['courier_company'] = orderCourierCompany;
+            }
+
+            if (orderCourierStatus) {
+                params['status'] = orderCourierStatus;
+            }
+
+            if (shipmentDate) {
+                params['shipment_date'] = shipmentDate;
+            }
+
+            const response = await axios.get(`${BASE_URL}/users/api/orders/courier/list/`, {
+                params,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            setuserCourierOrder(response.data.results);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const downloadCsv = async (e) => {
+        e.preventDefault();
+
+        try {
+            const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
+
+            const params = {};
+
+            if (orderType) {
+                params['order_type'] = orderType;
+            }
+
+            if (orderAwbNumber) {
+                params['awb_number'] = orderAwbNumber;
+            }
+
+            if (orderCourierCompany) {
+                params['courier_company'] = orderCourierCompany;
+            }
+
+            if (orderCourierStatus) {
+                params['status'] = orderCourierStatus;
+            }
+
+            if (shipmentDate) {
+                params['shipment_date'] = shipmentDate;
+            }
+
+            const queryString = new URLSearchParams(params).toString();
+
+            const response = await axios.get(`${BASE_URL}/users/orders/csv/?${queryString}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                responseType: 'blob', // Set the response type to blob
+            });
+
+            const blob = new Blob([response.data], { type: 'text/csv' });
+
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'data.csv';
+
+            // Programmatically trigger a click event on the download link
+            downloadLink.click();
+
+            // Clean up
+            URL.revokeObjectURL(downloadLink.href);
+            downloadLink.remove();
+        } catch (error) {
+            console.log(error);
+        }
+
+    };
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await userCourierOrders();
-            console.log(data);
             setuserCourierOrder(data.results);
         };
 
         fetchData();
-    }, [userCourierOrder]);
+    }, []);
+
 
     return (
         <Layout>
+            <form className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+                <div className="mb-4">
+                    <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Order Type:</label>
+                    <input
+                        type="text"
+                        id="orderType"
+                        defaultValue={orderType}
+                        onChange={(e) => setOrderType(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="orderAwbNumber" className="block mb-2 font-medium text-gray-700">Order AWB Number:</label>
+                    <input
+                        type="text"
+                        id="orderAwbNumber"
+                        defaultValue={orderAwbNumber}
+                        onChange={(e) => setOrderAwbNumber(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="orderCourierCompany" className="block mb-2 font-medium text-gray-700">Order Courier Company:</label>
+                    <input
+                        type="text"
+                        id="orderCourierCompany"
+                        defaultValue={orderCourierCompany}
+                        onChange={(e) => setOrderCourierCompany(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Status:</label>
+                    <input
+                        type="text"
+                        id="orderCourierStatus"
+                        defaultValue={orderCourierStatus}
+                        onChange={(e) => setOrderCourierStatus(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Status:</label>
+                    <input
+                        type="text"
+                        id="orderCourierStatus"
+                        defaultValue={shipmentDate}
+                        onChange={(e) => setOrderCourierStatus(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <button type="submit" className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={(e) => handleSubmitSearch(e)}>
+                    Search
+                </button>
+            </form>
+            <br />
+            <button className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={(e) => downloadCsv(e)}>
+                Download CSV
+            </button>
+            <br />
+            <br />
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

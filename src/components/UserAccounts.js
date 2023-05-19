@@ -7,13 +7,11 @@ import axios from 'axios';
 
 const UserAccounts = () => {
     const [userAccount, setUserAccount] = useState([]);
-    console.log(userAccount);
     const [orderType, setOrderType] = useState('');
     const [orderAwbNumber, setOrderAwbNumber] = useState('');
     const [orderCourierCompany, setOrderCourierCompany] = useState('');
     const [orderCourierStatus, setOrderCourierStatus] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    console.log(searchResults);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
