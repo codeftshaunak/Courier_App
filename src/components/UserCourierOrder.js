@@ -73,7 +73,7 @@ const UserCourierOrder = () => {
         };
 
         fetchData();
-    }, []);
+    }, [userCourierOrder]);
 
     return (
         <Layout>

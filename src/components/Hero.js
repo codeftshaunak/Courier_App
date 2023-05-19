@@ -1,28 +1,6 @@
-// import { fetchCourierList } from '@/utils/api';
-// import { useEffect, useState } from 'react'
-
-// export default function Hero() {
-//     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-//     const [courierData, setCourierData] = useState([]);
-//     console.log(courierData);
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             const data = await fetchCourierList();
-//             setCourierData(data);
-//         };
-//         fetchData();
-//     }, []);
-
-
-
-//     return (
-//         <div className="bg-gray-200 text-black vh-80 mt-20 flex items-center justify-center mt-5rem">
-//         </div>
-//     )
-// }
-
-import { CloudArrowUpIcon, LockClosedIcon, PhoneIcon, LockOpenIcon, ArchiveBoxIcon, EyeIcon, ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline'
+import { CloudArrowUpIcon, LockClosedIcon, PhoneIcon, LockOpenIcon, ArchiveBoxIcon, EyeIcon, ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const features = [
     {
@@ -69,7 +47,40 @@ const chooseUs = [
     }
 ]
 
+
+
 export default function Example() {
+
+    // useEffect(async () => {
+    //     // const permission = await Notification.requestPermission();
+    //     // const accessToken = localStorage?.getItem('accessToken');
+
+    //     // if (permission === 'granted' && accessToken) {
+    //     //     // Generate Token
+    //     //     const token = await getToken(messaging, {
+    //     //         vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k',
+    //     //         headers: {
+    //     //             Authorization: `Bearer ${accessToken}`,
+    //     //         },
+    //     //     });
+
+    //     //     try {
+    //     //         const response = await axios.post(`${BASE_URL}/users/fcm-device/`, {
+    //     //             registration_id: token,
+    //     //         });
+    //     //         console.log('Token sent successfully:', response.data);
+    //     //     } catch (error) {
+    //     //         console.error('Failed to send token:', error);
+    //     //     }
+
+    //     // } else if (permission === 'denied') {
+    //     //     alert('You denied the notification');
+    //     // } else {
+    //     //     console.log('User is not logged in');
+    //     // }
+    // }, []);
+
+
     return (
         <>
             <div className="bg-color py-24 sm:py-32">

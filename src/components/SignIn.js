@@ -6,48 +6,86 @@ import { useRouter } from 'next/router';
 import { signIn } from '@/utils/api';
 import { getToken } from 'firebase/messaging';
 import { messaging } from '@/utils/firebase';
+import BASE_URL from '@/public/config';
+import axios from 'axios';
 
 export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
 
-    async function requestPermission() {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-            //Generate Token
-            const token = await getToken(messaging, { vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k' });
-            console.log(token);
-        } else if (permission === 'denied') {
-            alert("You denied for the notification")
-        }
-    }
+    // async function requestPermission() {
+    //     const permission = await Notification.requestPermission();
+    //     if (permission === 'granted') {
+    //         //Generate Token
+    //         const token = await getToken(messaging, { vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k' });
+    //         console.log(token);
+    //     } else if (permission === 'denied') {
+    //         alert("You denied for the notification")
+    //     }
+    // }
 
-    useEffect(() => {
-        //Req user for notification permission
-        requestPermission();
-    }, [])
+    // useEffect(() => {
+    //     //Req user for notification permission
+    //     requestPermission();
+    // }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await signIn(username, password);
-            console.log(response);
+
             // Store the access token in localStorage
             localStorage.setItem('accessToken', response.access);
 
             // Optionally, store the refresh token as well
             localStorage.setItem('refreshToken', response.refresh);
 
-            alert("SignIn Successful");
+            // FCM 
+            // const permission = await Notification.requestPermission();
+            // const accessToken = localStorage?.getItem('accessToken');
+            // if (permission === 'granted') {
+            //     // Generate Token
+            //     const token = await getToken(messaging, {
+            //         vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k',
+            //         headers: {
+            //             Authorization: `Bearer ${accessToken}`,
+            //         },
+            //     });
+            //     console.log(token);
+
+            //     try {
+            //         const response = await axios.post(`${BASE_URL}/users/fcm-device/`, {
+            //             registration_id: token,
+            //         });
+
+            //         console.log('Token sent successfully:', response.data);
+            //     } catch (error) {
+            //         console.error('Failed to send token:', error);
+            //     }
+            // } else if (permission === 'denied') {
+            //     alert('You denied the notification');
+            // }
+
+
+            alert('Sign-in successful');
 
             // Navigate to the home page after successful login
             router.push('/');
-
         } catch (error) {
             console.error(error);
+
+            // Display the error message in the frontend
+            if (error.response && error.response.data && error.response.data.error) {
+                const errorMessage = error.response.data.error;
+                alert(`Sign-in failed: ${errorMessage}`);
+            } else {
+                alert('Sign-in failed. Please try again.');
+            }
         }
     };
+
 
     return (
         <>

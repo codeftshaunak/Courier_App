@@ -2,7 +2,7 @@ import React from 'react';
 import LayoutComponent from '../layout/LayoutComponent';
 import Hero from './Hero';
 import Footer from './Footer';
-import HeroAbou from './HeroAbou';
+import HeroAbou from './HeroAbout';
 import Overview from './Overview';
 
 const About = () => {
