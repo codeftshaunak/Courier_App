@@ -113,7 +113,7 @@ const Appadmins = () => {
             }
             const queryString = new URLSearchParams(params).toString();
 
-            const response = await axios.get(`${BASE_URL}/appadmins/api/accounts/csv-download/?${queryString}`, {
+            const response = await axios.get(`${BASE_URL}/appadmins/api/orders/csv-download/?${queryString}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
