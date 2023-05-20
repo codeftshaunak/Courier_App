@@ -12,7 +12,6 @@ const EditCustomer = () => {
         is_verified: "",
         is_active: ""
     });
-    console.log(customer);
 
     useEffect(() => {
         customer.is_active = data.is_active;
@@ -36,7 +35,7 @@ const EditCustomer = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.patch(`${BASE_URL}/appadmins/customers/${id}/`, customer)
+        axios.put(`${BASE_URL}/appadmins/customers/${id}/`, customer)
             .then((response) => {
                 console.log(response.data);
                 // handle success
@@ -55,7 +54,7 @@ const EditCustomer = () => {
 
     return (
         <AppadminLayout>
-            <h1>Edit Customer - {data.email}</h1>
+            {/* <h1>Edit Customer - {data.email}</h1>
             <div className="flex space-x-4">
                 <form onSubmit={handleSubmit}>
                     <div className="relative">
@@ -68,7 +67,7 @@ const EditCustomer = () => {
                             defaultValue={data.is_verified}
                             onChange={handleInputChange}
                         >
-                            <option>Select Any Option</option>
+                            <option disabled>Select Any Option</option>
                             <option value="true">Verified</option>
                             <option value="False">Unverified</option>
                         </select>
@@ -81,12 +80,56 @@ const EditCustomer = () => {
                             defaultValue={data.is_active}
                             onChange={handleInputChange}
                         >
-                            <option>Select Any Option</option>
+                            <option disabled>Select Any Option</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
                         </select>
                         <br />
                         <button type="submit">Update</button>
+                    </div>
+                </form>
+            </div> */}
+            <h1 className="text-2xl font-bold mb-4">Edit Customer - {data.email}</h1>
+            <div className="flex space-x-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="relative">
+                        <label htmlFor="user-verified" className="text-gray-700">
+                            VERIFIED
+                        </label>
+                        <br />
+                        <select
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            id="user-verified"
+                            name="is_verified"
+                            defaultValue={data.is_verified}
+                            onChange={handleInputChange}
+                        >
+                            <option disabled>Select Any Option</option>
+                            <option value="true">Verified</option>
+                            <option value="False">Unverified</option>
+                        </select>
+                        <br />
+                        <label htmlFor="status" className="text-gray-700">
+                            STATUS
+                        </label>
+                        <select
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            id="status"
+                            name="is_active"
+                            defaultValue={data.is_active}
+                            onChange={handleInputChange}
+                        >
+                            <option disabled>Select Any Option</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                        <br />
+                        <button
+                            type="submit"
+                            className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                        >
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>

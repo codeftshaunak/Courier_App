@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const UserCourierOrder = () => {
     const [userCourierOrder, setuserCourierOrder] = useState([]);
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
     const cancelButtonRef = useRef(null);
     const [orderType, setOrderType] = useState('');
     const [orderAwbNumber, setOrderAwbNumber] = useState('');
@@ -165,8 +165,6 @@ const UserCourierOrder = () => {
         }
 
     };
-
-
 
 
     useEffect(() => {

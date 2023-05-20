@@ -170,6 +170,26 @@ export const ResolveComplaint = async (awb_number) => {
 export const usersList = async () => {
     const accessToken = localStorage.getItem('accessToken');
     try {
+        const response = await axios.get(`${BASE_URL}/appadmins/api/accounts/list`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = response.data;
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
+//appadin customer 
+export const customerList = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    try {
         const response = await axios.get(`${BASE_URL}/appadmins/customers/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
