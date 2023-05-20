@@ -18,7 +18,7 @@ const AppadminSidebar = () => {
         { title: 'Home', path: '/', src: <CgProfile /> },
         { title: 'Appadmins', path: '/appadmins', src: <SiFuturelearn /> },
         { title: 'Coustomer', path: '/coustomers', src: <SiFuturelearn /> },
-        { title: 'CreateAccount', path: '/createaccount', src: <SiFuturelearn /> },
+        { title: 'Account', path: '/createaccount', src: <SiFuturelearn /> },
         { title: 'Adminlogin', path: '/admin', src: <SiOpenaccess />, gap: 'true' },
     ]
 
