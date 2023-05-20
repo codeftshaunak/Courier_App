@@ -15,7 +15,7 @@ const AppadminSidebar = () => {
     const router = useRouter();
 
     const Menus = [
-        { title: 'Home', path: '/', src: <CgProfile /> },
+        { title: 'Home', path: '/adminhome', src: <CgProfile /> },
         { title: 'Appadmins', path: '/appadmins', src: <SiFuturelearn /> },
         { title: 'Coustomer', path: '/coustomers', src: <SiFuturelearn /> },
         { title: 'Account', path: '/createaccount', src: <SiFuturelearn /> },
