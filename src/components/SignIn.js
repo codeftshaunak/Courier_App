@@ -90,6 +90,9 @@ export default function SignIn() {
     return (
         <>
             <LayoutComponent>
+                <br />
+                <br />
+                <br />
                 <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
                     <div className="w-full max-w-md space-y-8">
                         <div>
@@ -118,7 +121,7 @@ export default function SignIn() {
                                         type="email"
                                         autoComplete="email"
                                         required
-                                        className="relative block w-full rounded-t-md border-0 py-2 px-1.5 text-black"
+                                        className="relative block w-full rounded-t-md border-px py-2 px-1.5 text-black bg-white"
                                         placeholder="User Name"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
@@ -135,7 +138,7 @@ export default function SignIn() {
                                         type="password"
                                         autoComplete="current-password"
                                         required
-                                        className="relative block w-full rounded-b-md border-0 py-2 px-1.5 text-black"
+                                        className="relative block w-full rounded-t-md border-px py-2 px-1.5 text-black bg-white"
                                         placeholder="Password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)} />

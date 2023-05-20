@@ -109,6 +109,11 @@ a {
 .bg-color{
   background-color: #e8e7e1;
 }
+
+.border-px{
+  border: 1px solid;
+}
+
 .comp-color{
   color: #50C878;
 }
