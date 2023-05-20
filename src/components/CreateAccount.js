@@ -1,311 +1,75 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useRef, useState } from 'react'
 import AppadminLayout from './Dashboard/AppadminLayout';
-import { customerList } from '@/utils/api';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import BASE_URL from '@/public/config';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-// import { Dialog, Transition } from '@headlessui/react';
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
-
-// export const CustomerFilter = ({
-//     placeholder,
-//     searchKey,
-//     onEnter,
-//     setSearchValue,
-// }) => {
-//     const [searchValueLocal, setSearchValueLocal] = useState("");
-
-//     const handleKeyPress = async (event) => {
-//         if (event.key === "Enter") {
-//             await onEnter(searchKey, searchValueLocal);
-//             setSearchValueLocal("");
-//         }
-//     };
-
-//     const handleChange = (event) => {
-//         const { value } = event.target;
-//         setSearchValueLocal(value);
-//         setSearchValue(value);
-//     };
-
-//     return (
-//         <>
-//             <input
-//                 type='text'
-//                 className='p-2 mt-2'
-//                 placeholder={placeholder}
-//                 value={searchValueLocal}
-//                 onChange={handleChange}
-//                 onKeyPress={handleKeyPress}
-//             />
-//         </>
-//     );
-// };
-
-
-const Coustomer = () => {
-    const [coustomers, setCoustomers] = useState([]);
-    // console.log(coustomers);
-    // const [searchKey, setSearchKey] = useState("");
-    // const [searchValue, setSearchValue] = useState("");
-
-    //Create Or Upload Csv File
-    // const [open, setOpen] = useState(false);
-    // const [opencsv, setOpencsv] = useState(false);
-    // const cancelButtonRef = useRef(null);
-    const router = useRouter();
-    // const [formData, setFormData] = useState({
-    //     awb_number: '',
-    //     amount: ''
-    // });
-
-    //Final Search 
-    const [courierCompany, setCourierCompany] = useState('');
-    const [idname, setIdname] = useState('');
-    const [usersname, setUsersname] = useState('');
-
-
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value
-    //     });
-    // };
+const CreateAccount = () => {
+    const [open, setOpen] = useState(false);
+    const [opencsv, setOpencsv] = useState(false);
+    const cancelButtonRef = useRef(null);
+    const [formData, setFormData] = useState({
+        awb_number: '',
+        amount: ''
+    });
 
     //Upload Csv File
-    // const [file, setFile] = useState(null);
-    // const handleFileChangeCsv = (event) => {
-    //     setFile(event.target.files[0]);
-    // };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await customerList();
-            setCoustomers(data.results)
-        };
-        fetchData();
-    }, []);
-
-    // const appAdminsOrder = async () => {
-    //     const accessToken = localStorage.getItem("accessToken");
-    //     try {
-    //         const response = await fetch(
-    //             `${BASE_URL}/appadmins/customers/?${searchKey}=${searchValue}`,
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${accessToken}`,
-    //                 },
-    //             }
-    //         );
-    //         const data = await response.json();
-    //         setCoustomers(data.results);
-    //         return data;
-    //     } catch (error) {
-    //         return console.log(error);
-    //     }
-    // };
-
-    // const handleEnter = (searchKey) => {
-    //     setSearchKey(searchKey);
-    //     appAdminsOrder();
-    //     setSearchValue("");
-    // };
-
-
-    //Handle Edit Customer
-    const handleEdit = (id) => {
-        router.push(`/coustomers/${id}`);
-    }
-
-    //Handle Submit Filter
-    const handleSubmitFilter = async (e) => {
-        e.preventDefault();
-
-        try {
-            const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
-
-            const params = {};
-
-            if (company_name) {
-                params['company_name'] = courierCompany;
-            }
-
-            if (id) {
-                params['id'] = idname;
-            }
-
-            if (usersname) {
-                params['username'] = usersname;
-            }
-
-            const response = await axios.get(`${BASE_URL}/appadmins/customers/`, {
-                params,
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            setCoustomers(response.data.results);
-        } catch (error) {
-            console.log(error)
-        }
+    const [file, setFile] = useState(null);
+    const handleFileChangeCsv = (event) => {
+        setFile(event.target.files[0]);
     };
 
-
     //Upload CSV file 
-    // const handleSubmitcsv = async (event) => {
-    //     event.preventDefault();
-    //     const formDataObj = new FormData();
-    //     formDataObj.append("file", file);
+    const handleSubmitcsv = async (event) => {
+        event.preventDefault();
+        const formDataObj = new FormData();
+        formDataObj.append("file", file);
 
-    //     const authToken = localStorage.getItem("accessToken");
-    //     const response = await fetch(`${BASE_URL}/appadmins/upload-accounts/`, {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${authToken}`,
-    //         },
-    //         body: formDataObj
-    //     });
-    //     console.log(response);
-    // }
+        const authToken = localStorage.getItem("accessToken");
+        const response = await fetch(`${BASE_URL}/appadmins/upload-accounts/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${authToken}`,
+            },
+            body: formDataObj
+        });
+        alert(response.statusText);
+    }
 
-    //When It Create New Account
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const formDataObj = new FormData();
-    //     formDataObj.append('awb_number', formData.awb_number);
-    //     formDataObj.append('amount', formData.amount);
-    //     const authToken = localStorage.getItem("accessToken");
-    //     const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${authToken}`,
-    //         },
-    //         body: formDataObj
-    //     });
-    //     console.log(formDataObj);
+    //Create New Account
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formDataObj = new FormData();
+        formDataObj.append('awb_number', formData.awb_number);
+        formDataObj.append('amount', formData.amount);
+        const authToken = localStorage.getItem("accessToken");
+        const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${authToken}`,
+            },
+            body: formDataObj
+        });
+        console.log(formDataObj);
 
-    //     const responseData = await response.json();
-    //     alert(responseData.message);
-    // }
+        const responseData = await response.json();
+        alert(responseData.message);
+    }
+    
+    //Change The Data
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
     return (
-        <AppadminLayout>
-            {/* <div className="mt-2.5">
-                <div className='flex justify-around flex-col'>
-                    <div className='flex justify-around flex-wrap'>
-                        <CustomerFilter
-                            placeholder='Company Name'
-                            searchKey='company_name'
-                            onEnter={handleEnter}
-                            setSearchValue={setSearchValue}
-                        />
-                        <CustomerFilter
-                            placeholder='Username'
-                            searchKey='username'
-                            onEnter={handleEnter}
-                            setSearchValue={setSearchValue}
-                        />
-                        <CustomerFilter
-                            placeholder='User Id'
-                            searchKey='id'
-                            onEnter={handleEnter}
-                            setSearchValue={setSearchValue}
-                        />
-                    </div>
-                </div>
-            </div> */}
-            <form onSubmit={handleSubmitFilter} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-                <div className="mb-4">
-                    <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Courier Company:</label>
-                    <input
-                        type="text"
-                        id="company_name"
-                        defaultValue={courierCompany}
-                        onChange={(e) => setCourierCompany(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="orderAwbNumber" className="block mb-2 font-medium text-gray-700">Id:</label>
-                    <input
-                        type="text"
-                        id="id"
-                        defaultValue={idname}
-                        onChange={(e) => setIdname(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="orderCourierCompany" className="block mb-2 font-medium text-gray-700">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        defaultValue={usersname}
-                        onChange={(e) => setUsersname(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-                <button type="submit" className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Search
-                </button>
-            </form>
-
-            <br />
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
-                            User Name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Company Name
-                        </th>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
-                            Status
-                        </th>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
-                            Verified
-                        </th>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
-                            Edit
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        coustomers?.map((user) => {
-                            console.log(user.id);
-                            return (
-                                <tr className="bg-white dark:bg-gray-800" key={user.id}>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {user.first_name} {user.last_name}
-                                    </th>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {user.company_name}
-                                    </th>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {user.is_active ? "Active" : "Not Active"}
-                                    </th>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {user.is_verified ? "Verified" : "Not Verified"}
-                                    </th>
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => handleEdit(user.id)}>
-                                        Edit
-                                    </button>
-                                </tr>
-                            )
-                        })
-                    }
-
-                </tbody>
-            </table>
-            <br />
-            <br />
-            {/* <Transition.Root show={open} as={Fragment}>
+        <>
+            <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -482,9 +246,9 @@ const Coustomer = () => {
             <br />
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpencsv(true)}>
                 Upload CSV
-            </button> */}
-        </AppadminLayout>
+            </button>
+        </>
     )
 }
 
-export default Coustomer;
+export default CreateAccount;
