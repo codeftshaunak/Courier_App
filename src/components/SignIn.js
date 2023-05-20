@@ -118,7 +118,7 @@ export default function SignIn() {
                                         type="email"
                                         autoComplete="email"
                                         required
-                                        className="relative block w-full rounded-t-md border-0 py-2 px-1.5 text-white"
+                                        className="relative block w-full rounded-t-md border-0 py-2 px-1.5 text-black"
                                         placeholder="User Name"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
@@ -135,7 +135,7 @@ export default function SignIn() {
                                         type="password"
                                         autoComplete="current-password"
                                         required
-                                        className="relative block w-full rounded-b-md border-0 py-2 px-1.5 text-white"
+                                        className="relative block w-full rounded-b-md border-0 py-2 px-1.5 text-black"
                                         placeholder="Password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)} />
