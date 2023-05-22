@@ -231,10 +231,6 @@ const Appadmins = () => {
                     </button>
                 </form>
                 <br />
-                <button className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={(e) => downloadCsv(e)}>
-                    Download CSV
-                </button>
-                <br />
                 {/* <div className='flex justify-around flex-wrap'>
                     <AppadminsFilter
                         placeholder='Courier Company'
