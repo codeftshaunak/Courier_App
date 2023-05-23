@@ -23,7 +23,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "style-component": "^0.0.1",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "victory": "^36.6.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

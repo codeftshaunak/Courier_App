@@ -6,7 +6,6 @@ import DashboardAmount from './Dashboard/UserDashboard';
 const Dashboard = () => {
     return (
         <Layout>
-            <HeroDashbord />
             <DashboardAmount />
         </Layout>
     )

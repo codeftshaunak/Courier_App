@@ -17,8 +17,7 @@ const UserAccounts = () => {
         e.preventDefault();
 
         try {
-            const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
-
+            const accessToken = localStorage.getItem('accessToken'); 
             const params = {};
 
             // if (orderType) {

@@ -4,6 +4,8 @@ import { customerList } from '@/utils/api';
 import BASE_URL from '@/public/config';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 // import { Dialog, Transition } from '@headlessui/react';
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
@@ -51,14 +53,33 @@ const Coustomer = () => {
     // const [searchValue, setSearchValue] = useState("");
 
     //Create Or Upload Csv File
-    // const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     // const [opencsv, setOpencsv] = useState(false);
-    // const cancelButtonRef = useRef(null);
+    const cancelButtonRef = useRef(null);
     const router = useRouter();
-    // const [formData, setFormData] = useState({
-    //     awb_number: '',
-    //     amount: ''
-    // });
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        address_nos: '',
+        address_line1: '',
+        address_line2: '',
+        address_line3: '',
+        address_pincode: '',
+        GST_nos: '',
+        company_name: '',
+        email: '',
+        mobile_number: '',
+    });
+
+    //Upload Photo and Id
+    const [photo, setPhoto] = useState(null);
+    const handlePhoto = (event) => {
+        setPhoto(event.target.files[0])
+    }
+    const [id, setId] = useState(null);
+    const handleId = (event) => {
+        setId(event.target.files[0])
+    }
 
     //Final Search 
     const [courierCompany, setCourierCompany] = useState('');
@@ -66,13 +87,13 @@ const Coustomer = () => {
     const [usersname, setUsersname] = useState('');
 
 
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value
-    //     });
-    // };
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
     //Upload Csv File
     // const [file, setFile] = useState(null);
@@ -171,26 +192,26 @@ const Coustomer = () => {
     //     console.log(response);
     // }
 
-    //When It Create New Account
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const formDataObj = new FormData();
-    //     formDataObj.append('awb_number', formData.awb_number);
-    //     formDataObj.append('amount', formData.amount);
-    //     const authToken = localStorage.getItem("accessToken");
-    //     const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${authToken}`,
-    //         },
-    //         body: formDataObj
-    //     });
-    //     console.log(formDataObj);
+    // When It Create New Account
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formDataObj = new FormData();
+        formDataObj.append('awb_number', formData.awb_number);
+        formDataObj.append('amount', formData.amount);
+        const authToken = localStorage.getItem("accessToken");
+        const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${authToken}`,
+            },
+            body: formDataObj
+        });
+        console.log(formDataObj);
 
-    //     const responseData = await response.json();
-    //     alert(responseData.message);
-    // }
+        const responseData = await response.json();
+        alert(responseData.message);
+    }
 
     return (
         <AppadminLayout>
@@ -218,7 +239,7 @@ const Coustomer = () => {
                     </div>
                 </div>
             </div> */}
-            <form onSubmit={handleSubmitFilter} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+            <form onSubmit={handleSubmitFilter} className="mx-auto p-4 bg-white shadow-md rounded-md flex items-center justify-center text-center">
                 <div className="mb-4">
                     <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Courier Company:</label>
                     <input
@@ -249,7 +270,7 @@ const Coustomer = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                <button type="submit" className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" className="w-auto h-7 px-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
                     Search
                 </button>
             </form>
@@ -258,7 +279,7 @@ const Coustomer = () => {
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="px-6 py-3 rounded-r-lg">
+                        <th scope="col" className="px-6 py-3">
                             User Name
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -305,7 +326,7 @@ const Coustomer = () => {
             </table>
             <br />
             <br />
-            {/* <Transition.Root show={open} as={Fragment}>
+            <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -338,26 +359,26 @@ const Coustomer = () => {
                                             </div>
                                             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                                 <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                                    Make Your Order
+                                                    Create New Acount
                                                 </Dialog.Title>
                                                 <div>
                                                     <form onSubmit={handleSubmit}>
                                                         <div className="mt-2.5">
                                                             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
-                                                                Awb Number:
+                                                                First Name
                                                             </label>
                                                             <input
                                                                 type="text"
-                                                                name="awb_number"
+                                                                name="first_name"
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.awb_number} onChange={handleChange}
+                                                                defaultValue={formData.first_name} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
                                                             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
-                                                                Amount:
+                                                                Last Name
                                                             </label>
                                                             <input
                                                                 type="text"
@@ -365,10 +386,149 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.amount} onChange={handleChange}
+                                                                defaultValue={formData.last_name} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Address No
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                name="address_nos"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.address_nos} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Address Line 01
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                name="address_line1"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.address_line1} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Address Line 02
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                name="address_line2"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.address_line2} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Address Line 03
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                name="address_line3"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.address_line3} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Address Pincode
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                name="address_pincode"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.address_pincode} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                GST No
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                name="GST_nos"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.GST_nos} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Company Name
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                name="company_name"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.company_name} onChange={handleChange}
                                                             />
                                                         </div>
 
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Email
+                                                            </label>
+                                                            <input
+                                                                type="email"
+                                                                name="email"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.email} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Mobile Number
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                name="mobile_number"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                defaultValue={formData.mobile_number} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Your Photo
+                                                            </label>
+                                                            <input
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                type="file" name="Photo" onChange={handlePhoto}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2.5">
+                                                            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+                                                                Your Idcard
+                                                            </label>
+                                                            <input
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                                                                type="file" name="ID_proof" onChange={handleId}
+                                                            />
+                                                        </div>
                                                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                                             <button
                                                                 type="submit"
@@ -398,7 +558,7 @@ const Coustomer = () => {
                 </Dialog>
             </Transition.Root>
 
-            <Transition.Root show={opencsv} as={Fragment}>
+            {/* <Transition.Root show={opencsv} as={Fragment}>
                 <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpencsv}>
                     <Transition.Child
                         as={Fragment}
@@ -473,12 +633,12 @@ const Coustomer = () => {
                         </div>
                     </div>
                 </Dialog>
-            </Transition.Root>
+            </Transition.Root> */}
 
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpen(true)}>
                 Create Account
             </button>
-            <br />
+            {/* <br />
             <br />
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpencsv(true)}>
                 Upload CSV

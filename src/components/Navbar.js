@@ -63,9 +63,13 @@ export default function Navbar() {
                         <a href="signin" className="text-sm font-semibold leading-6 text-gray-900">
                             Sign In <span aria-hidden="true">&rarr;</span>
                         </a>
-                        <button onClick={() => setOpen(true)} className="text-sm font-semibold leading-6 text-gray-900">
+                        <a href="trackinguser" className="text-sm font-semibold leading-6 text-gray-900">
+                            Track Now
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                        {/* <button onClick={() => setOpen(true)} className="text-sm font-semibold leading-6 text-gray-900">
                             Track Now <span aria-hidden="true">&rarr;</span>
-                        </button>
+                        </button> */}
                     </div>
                 </nav>
 
@@ -108,9 +112,15 @@ export default function Navbar() {
                                     >
                                         Sign In
                                     </a>
-                                    <button onClick={() => setOpen(true)} className="text-sm font-semibold leading-6 text-gray-900">
+                                    <a
+                                        href="trackinguser"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        Track Now
+                                    </a>
+                                    {/* <button onClick={() => setOpen(true)} className="text-sm font-semibold leading-6 text-gray-900">
                                         Track Now <span aria-hidden="true">&rarr;</span>
-                                    </button>
+                                    </button> */}
 
                                 </div>
                             </div>

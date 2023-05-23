@@ -18,6 +18,7 @@ const Sidebar = () => {
         { title: 'User Account', path: '/useraccount', src: <CgProfile /> },
         { title: 'User Complaint', path: '/usercomplaint', src: <CgProfile /> },
         { title: 'User Orders', path: '/userorders', src: <CgProfile /> },
+        { title: 'Tracking Orders', path: '/trackinguser', src: <CgProfile /> },
         { title: 'Signin', path: '/signin', src: <SiOpenaccess />, gap: 'true' },
     ]
 

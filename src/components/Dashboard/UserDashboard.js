@@ -1,12 +1,13 @@
 import BASE_URL from '@/public/config';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import HeroDashbord from './HeroDashbord';
 
 const UserDashboard = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [userData, setUserData] = useState([]);
-    console.log(userData);
+    // console.log(userData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,6 +38,60 @@ const UserDashboard = () => {
         }
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+            const getYesterday = () => {
+                const today = new Date();
+                const yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
+                return yesterday;
+            }
+
+            const todayStart = () => {
+                const today = new Date();
+                const Today = new Date(today);
+                return Today;
+            }
+
+            try {
+                const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
+
+                const params = {};
+                let a = 5;
+
+                if (a == 5) {
+                    const today = todayStart();
+                    const formattedStartDate = formatDate(today);
+                    params['start_date'] = formattedStartDate;
+                }
+
+                if (a == 5) {
+                    const yesterday = getYesterday();
+                    const formattedEndDate = formatDate(yesterday);
+                    params['end_date'] = formattedEndDate;
+                }
+
+                const response = await axios.get(`${BASE_URL}/users/dashboard`, {
+                    params,
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                setUserData(response.data);
+                console.log(response);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData();
+    }, [])
+
     return (
         <div>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
@@ -47,6 +102,7 @@ const UserDashboard = () => {
                         id="startDate"
                         defaultValue={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
+                        placeholder='yyyy-mm-dd'
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -57,6 +113,7 @@ const UserDashboard = () => {
                         id="endDate"
                         defaultValue={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
+                        placeholder='yyyy-mm-dd'
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -65,6 +122,7 @@ const UserDashboard = () => {
                 </button>
             </form>
             <br />
+            <HeroDashbord userData={userData} />
         </div>
     )
 }
