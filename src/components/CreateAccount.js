@@ -43,21 +43,25 @@ const CreateAccount = () => {
         const formDataObj = new FormData();
         formDataObj.append('awb_number', formData.awb_number);
         formDataObj.append('amount', formData.amount);
-        const authToken = localStorage.getItem("accessToken");
-        const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`,
-            },
-            body: formDataObj
-        });
-        console.log(formDataObj);
 
-        const responseData = await response.json();
-        alert(responseData.message);
+        const authToken = localStorage.getItem("accessToken");
+        try {
+            const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${authToken}`,
+                },
+                body: formDataObj
+            });
+            const responseData = await response.json();
+            alert(responseData.message);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
-    
+
     //Change The Data
     const handleChange = (event) => {
         const { name, value } = event.target;

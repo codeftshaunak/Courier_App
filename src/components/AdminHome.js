@@ -6,7 +6,6 @@ import DashboardAmount from './Dashboard/UserDashboard'
 const AdminHome = () => {
     return (
         <AppadminLayout>
-            <HeroDashbord />
             <DashboardAmount />
         </AppadminLayout>
     )

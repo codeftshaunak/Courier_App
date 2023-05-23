@@ -23,7 +23,7 @@ export default function Admin() {
             alert("SignIn Successful");
 
             // Navigate to the home page after successful login
-            router.push('/admindashboard');
+            router.push('/adminhome');
 
         } catch (error) {
             console.error(error);

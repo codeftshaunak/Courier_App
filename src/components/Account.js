@@ -12,7 +12,7 @@ const Account = () => {
     const [orderAwbNumber, setOrderAwbNumber] = useState('');
     const [orderCourierCompany, setOrderCourierCompany] = useState('');
     const [orderCourierStatus, setOrderCourierStatus] = useState('');
-
+    console.log(orderCourierStatus);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -101,8 +101,11 @@ const Account = () => {
 
     };
 
+    const handleChangeStatus = (event) => {
+        const { value } = event.target;
+        setOrderCourierStatus(value);
+    };
 
-    console.log(account);
     useEffect(() => {
         const fetchData = async () => {
             const data = await usersList();
@@ -150,13 +153,18 @@ const Account = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Status:</label>
-                    <input
-                        type="text"
-                        id="orderCourierStatus"
-                        defaultValue={orderCourierStatus}
-                        onChange={(e) => setOrderCourierStatus(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <div className="mb-4">
+                        <select name="status" id="status" className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
+                            onChange={handleChangeStatus}
+                        >
+                            <option value="preparing">Preparing</option>
+                            <option value="manifested">Manifested</option>
+                            <option value="in_transit">In Transit</option>
+                            <option value="out_for_delivery">Out of Delivery</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Search

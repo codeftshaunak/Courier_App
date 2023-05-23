@@ -6,52 +6,10 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-// import { Dialog, Transition } from '@headlessui/react';
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-
-
-// export const CustomerFilter = ({
-//     placeholder,
-//     searchKey,
-//     onEnter,
-//     setSearchValue,
-// }) => {
-//     const [searchValueLocal, setSearchValueLocal] = useState("");
-
-//     const handleKeyPress = async (event) => {
-//         if (event.key === "Enter") {
-//             await onEnter(searchKey, searchValueLocal);
-//             setSearchValueLocal("");
-//         }
-//     };
-
-//     const handleChange = (event) => {
-//         const { value } = event.target;
-//         setSearchValueLocal(value);
-//         setSearchValue(value);
-//     };
-
-//     return (
-//         <>
-//             <input
-//                 type='text'
-//                 className='p-2 mt-2'
-//                 placeholder={placeholder}
-//                 value={searchValueLocal}
-//                 onChange={handleChange}
-//                 onKeyPress={handleKeyPress}
-//             />
-//         </>
-//     );
-// };
-
 
 const Coustomer = () => {
     const [coustomers, setCoustomers] = useState([]);
-    // console.log(coustomers);
-    // const [searchKey, setSearchKey] = useState("");
-    // const [searchValue, setSearchValue] = useState("");
-
+    console.log(coustomers);
     //Create Or Upload Csv File
     const [open, setOpen] = useState(false);
     // const [opencsv, setOpencsv] = useState(false);
@@ -76,7 +34,7 @@ const Coustomer = () => {
     const handlePhoto = (event) => {
         setPhoto(event.target.files[0])
     }
-    const [id, setId] = useState(null);
+    const [idCard, setId] = useState(null);
     const handleId = (event) => {
         setId(event.target.files[0])
     }
@@ -86,20 +44,15 @@ const Coustomer = () => {
     const [idname, setIdname] = useState('');
     const [usersname, setUsersname] = useState('');
 
-
+    //Handle Change
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
-    //Upload Csv File
-    // const [file, setFile] = useState(null);
-    // const handleFileChangeCsv = (event) => {
-    //     setFile(event.target.files[0]);
-    // };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -107,32 +60,7 @@ const Coustomer = () => {
             setCoustomers(data.results)
         };
         fetchData();
-    }, []);
-
-    // const appAdminsOrder = async () => {
-    //     const accessToken = localStorage.getItem("accessToken");
-    //     try {
-    //         const response = await fetch(
-    //             `${BASE_URL}/appadmins/customers/?${searchKey}=${searchValue}`,
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${accessToken}`,
-    //                 },
-    //             }
-    //         );
-    //         const data = await response.json();
-    //         setCoustomers(data.results);
-    //         return data;
-    //     } catch (error) {
-    //         return console.log(error);
-    //     }
-    // };
-
-    // const handleEnter = (searchKey) => {
-    //     setSearchKey(searchKey);
-    //     appAdminsOrder();
-    //     setSearchValue("");
-    // };
+    }, [coustomers]);
 
 
     //Handle Edit Customer
@@ -174,43 +102,38 @@ const Coustomer = () => {
     };
 
 
-    //Upload CSV file 
-    // const handleSubmitcsv = async (event) => {
-    //     event.preventDefault();
-    //     const formDataObj = new FormData();
-    //     formDataObj.append("file", file);
-
-    //     const authToken = localStorage.getItem("accessToken");
-    //     const response = await fetch(`${BASE_URL}/appadmins/upload-accounts/`, {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${authToken}`,
-    //         },
-    //         body: formDataObj
-    //     });
-    //     console.log(response);
-    // }
-
     // When It Create New Account
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formDataObj = new FormData();
-        formDataObj.append('awb_number', formData.awb_number);
-        formDataObj.append('amount', formData.amount);
+        formDataObj.append('first_name', formData.first_name);
+        formDataObj.append('last_name', formData.last_name);
+        formDataObj.append('address_nos', formData.address_nos);
+        formDataObj.append('address_line1', formData.address_line1);
+        formDataObj.append('address_line2', formData.address_line2);
+        formDataObj.append('address_line3', formData.address_line3);
+        formDataObj.append('address_pincode', formData.address_pincode);
+        formDataObj.append('GST_nos', formData.GST_nos);
+        formDataObj.append('company_name', formData.company_name);
+        formDataObj.append('email', formData.email);
+        formDataObj.append('mobile_number', formData.mobile_number);
+        formDataObj.append('Photo', photo);
+        formDataObj.append('ID_proof', idCard);
         const authToken = localStorage.getItem("accessToken");
-        const response = await fetch(`${BASE_URL}/appadmins/api/accounts/create/`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`,
-            },
-            body: formDataObj
-        });
-        console.log(formDataObj);
-
-        const responseData = await response.json();
-        alert(responseData.message);
+        try {
+            const response = await fetch(`${BASE_URL}/appadmins/customers/create`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${authToken}`,
+                },
+                body: formDataObj
+            });
+            const responseData = await response.json();
+            alert(responseData.message);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -299,7 +222,7 @@ const Coustomer = () => {
                 <tbody>
                     {
                         coustomers?.map((user) => {
-                            console.log(user.id);
+                            // console.log(user.id);
                             return (
                                 <tr className="bg-white dark:bg-gray-800" key={user.id}>
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -359,7 +282,7 @@ const Coustomer = () => {
                                             </div>
                                             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                                 <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                                    Create New Acount
+                                                    Create New Customer
                                                 </Dialog.Title>
                                                 <div>
                                                     <form onSubmit={handleSubmit}>
@@ -373,7 +296,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.first_name} onChange={handleChange}
+                                                                value={formData.first_name} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -382,11 +305,11 @@ const Coustomer = () => {
                                                             </label>
                                                             <input
                                                                 type="text"
-                                                                name="amount"
+                                                                name="last_name"
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.last_name} onChange={handleChange}
+                                                                value={formData.last_name} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -394,12 +317,12 @@ const Coustomer = () => {
                                                                 Address No
                                                             </label>
                                                             <input
-                                                                type="text"
+                                                                type="number"
                                                                 name="address_nos"
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.address_nos} onChange={handleChange}
+                                                                value={formData.address_nos} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -412,7 +335,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.address_line1} onChange={handleChange}
+                                                                value={formData.address_line1} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -425,7 +348,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.address_line2} onChange={handleChange}
+                                                                value={formData.address_line2} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -438,7 +361,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.address_line3} onChange={handleChange}
+                                                                value={formData.address_line3} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -451,7 +374,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.address_pincode} onChange={handleChange}
+                                                                value={formData.address_pincode} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -464,7 +387,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.GST_nos} onChange={handleChange}
+                                                                value={formData.GST_nos} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -477,7 +400,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.company_name} onChange={handleChange}
+                                                                value={formData.company_name} onChange={handleChange}
                                                             />
                                                         </div>
 
@@ -491,7 +414,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.email} onChange={handleChange}
+                                                                value={formData.email} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -504,7 +427,7 @@ const Coustomer = () => {
                                                                 id="first-name"
                                                                 autoComplete="given-name"
                                                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-100"
-                                                                defaultValue={formData.mobile_number} onChange={handleChange}
+                                                                value={formData.mobile_number} onChange={handleChange}
                                                             />
                                                         </div>
                                                         <div className="mt-2.5">
@@ -636,7 +559,7 @@ const Coustomer = () => {
             </Transition.Root> */}
 
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpen(true)}>
-                Create Account
+                Create New Customer
             </button>
             {/* <br />
             <br />
