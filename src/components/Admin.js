@@ -35,6 +35,7 @@ export default function Admin() {
     const router = useRouter();
 
     const handleSubmit = async (e) => {
+        console.log("clicked");
         e.preventDefault();
         try {
             const response = await adminSignIn(username, password);
