@@ -30,6 +30,17 @@ export const signIn = async (username, password) => {
     }
 };
 
+//post for signUp
+export const signUp = async (first_name, last_name, email, mobile_number, verify_email, verify_mobile_number) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/users/api/users/register/`, { first_name, last_name, email, mobile_number, verify_email, verify_mobile_number });
+        const data = await response.data;
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 //post for adminsignin
 export const adminSignIn = async (username, password) => {
     try {

@@ -14,22 +14,6 @@ export default function SignIn() {
     const [password, setPassword] = useState('');
     const router = useRouter();
 
-    // async function requestPermission() {
-    //     const permission = await Notification.requestPermission();
-    //     if (permission === 'granted') {
-    //         //Generate Token
-    //         const token = await getToken(messaging, { vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k' });
-    //         console.log(token);
-    //     } else if (permission === 'denied') {
-    //         alert("You denied for the notification")
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     //Req user for notification permission
-    //     requestPermission();
-    // }, [])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -41,34 +25,6 @@ export default function SignIn() {
 
             // Optionally, store the refresh token as well
             localStorage.setItem('refreshToken', response.refresh);
-
-            // FCM 
-            // const permission = await Notification.requestPermission();
-            // const accessToken = localStorage?.getItem('accessToken');
-            // if (permission === 'granted') {
-            //     // Generate Token
-            //     const token = await getToken(messaging, {
-            //         vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k',
-            //         headers: {
-            //             Authorization: `Bearer ${accessToken}`,
-            //         },
-            //     });
-            //     console.log(token);
-
-            //     try {
-            //         const response = await axios.post(`${BASE_URL}/users/fcm-device/`, {
-            //             registration_id: token,
-            //         });
-
-            //         console.log('Token sent successfully:', response.data);
-            //     } catch (error) {
-            //         console.error('Failed to send token:', error);
-            //     }
-            // } else if (permission === 'denied') {
-            //     alert('You denied the notification');
-            // }
-
-
             alert('Sign-in successful');
 
             // Navigate to the home page after successful login

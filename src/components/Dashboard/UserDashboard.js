@@ -68,13 +68,13 @@ const UserDashboard = () => {
                 if (a == 5) {
                     const today = todayStart();
                     const formattedStartDate = formatDate(today);
-                    params['start_date'] = formattedStartDate;
+                    params['end_date'] = formattedStartDate;
                 }
 
                 if (a == 5) {
                     const yesterday = getYesterday();
                     const formattedEndDate = formatDate(yesterday);
-                    params['end_date'] = formattedEndDate;
+                    params['start_date'] = formattedEndDate;
                 }
 
                 const response = await axios.get(`${BASE_URL}/users/dashboard`, {

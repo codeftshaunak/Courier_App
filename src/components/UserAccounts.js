@@ -113,7 +113,7 @@ const UserAccounts = () => {
 
     return (
         <Layout>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
                 {/* <div className="mb-4">
                     <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Order Type:</label>
                     <input
@@ -154,7 +154,7 @@ const UserAccounts = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div> */}
-                <button type="submit" className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
                     Search
                 </button>
             </form>
