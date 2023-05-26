@@ -278,7 +278,7 @@ const UserCourierOrder = () => {
             </table>
             <br />
 
-            <button type="submit" className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+            <button type="submit" onClick={()=>setOpen(true)} className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
                 Add A New Order
             </button>
 
