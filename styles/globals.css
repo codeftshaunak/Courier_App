@@ -153,6 +153,30 @@ a {
   font-weight: 100;
 }
 
+.notification{
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: red;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.notification:hover{
+  background-color: rgb(211, 211, 211);
+}
+
+.notification svg{
+  font-size: 30px;
+  font-weight: 600;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

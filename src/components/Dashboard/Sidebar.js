@@ -5,7 +5,12 @@ import { SiOpenaccess } from 'react-icons/si'
 import { CgProfile } from 'react-icons/cg'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import HumburgerButton from './HumburgerMenu/HumburgerButton'
+import HumburgerButton from './HumburgerMenu/HumburgerButton';
+import { IoIosNotificationsOutline } from 'react-icons/io';
+import { getMessaging, getToken } from 'firebase/messaging'
+import { initializeApp } from 'firebase/app'
+import axios from 'axios'
+import BASE_URL from '@/public/config'
 
 
 const Sidebar = () => {
@@ -21,6 +26,53 @@ const Sidebar = () => {
         { title: 'Tracking Orders', path: '/trackinguser', src: <CgProfile /> },
         { title: 'Signin', path: '/signin', src: <SiOpenaccess />, gap: 'true' },
     ]
+
+
+
+    //Firebase Cloud Messaging
+    const firebaseConfig = {
+        apiKey: "AIzaSyCIoomfvPM8SRwqAOqYG4sgIyTy_tuWnOQ",
+        authDomain: "courier-application-a7d23.firebaseapp.com",
+        projectId: "courier-application-a7d23",
+        storageBucket: "courier-application-a7d23.appspot.com",
+        messagingSenderId: "357303065126",
+        appId: "1:357303065126:web:d90fb7c0da1dce41c0e4e7",
+        measurementId: "G-RH4VNVLJ45"
+    };
+
+    let messaging = null;
+
+
+    if (typeof window !== 'undefined') {
+        // Initialize Firebase only on the client-side
+        const app = initializeApp(firebaseConfig);
+        messaging = getMessaging(app);
+    }
+
+    const handleNotification = async () => {
+        const accessToken = localStorage.getItem("accessToken");
+        // console.log(accessToken);
+        try {
+            const token = await getToken(messaging, {
+                vapidKey: 'BCVF3M-ob6qMAK9pPprwZOfB31OsWRFtX6srpdXw1Qjr5VRkUhKivBbt6b5cPBxW-uuR-QMXqTmoZGTfVe9ik9k',
+            });
+
+            console.log(token);
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            };
+
+            const response = await axios.post(`${BASE_URL}/users/fcm-device/`, { registration_id: token }, config);
+            console.log('Token sent successfully:', response.data);
+            alert('You will notified');
+        } catch (error) {
+            console.error('Failed to send token:', error);
+        }
+    };
+
 
     return (
         <>
@@ -87,6 +139,11 @@ const Sidebar = () => {
                         </NextLink>
                     ))}
                 </div>
+            </div>
+
+            <div className="notification" onClick={handleNotification}>
+                <h1>Get Notified</h1>
+                <IoIosNotificationsOutline />
             </div>
         </>
     )
