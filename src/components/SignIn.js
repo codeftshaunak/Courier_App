@@ -358,7 +358,7 @@ export default function SignIn() {
                         <div>
                             <img
                                 className="mx-auto h-12 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                src="/courierlogo.jpeg"
                                 alt="Your Company"
                             />
                             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

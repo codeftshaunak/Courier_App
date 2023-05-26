@@ -3,7 +3,7 @@ import React from 'react'
 
 const index = () => {
     return (
-        <div>
+        <div className='bg-white vh-100'>
             <TrackingUser />
         </div>
     )

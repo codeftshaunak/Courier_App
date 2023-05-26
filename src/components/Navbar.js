@@ -34,8 +34,8 @@ export default function Navbar() {
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Courier</span>
                             <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                className="h-16` w-auto"
+                                src="/courierlogo.jpeg"
                                 alt=""
                             />
                         </a>
@@ -82,7 +82,7 @@ export default function Navbar() {
                                 <span className="sr-only">Your Company</span>
                                 <img
                                     className="h-8 w-auto"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                    src="/courierlogo.jpeg"
                                     alt=""
                                 />
                             </a>

@@ -8,6 +8,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import BASE_URL from '@/public/config';
 import axios from 'axios';
+// import Image from 'next/image';
 
 export default function Admin() {
     const [username, setUsername] = useState('');
@@ -212,7 +213,7 @@ export default function Admin() {
                         <div>
                             <img
                                 className="mx-auto h-12 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                src="/courierlogo.jpeg"
                                 alt="Your Company"
                             />
                             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

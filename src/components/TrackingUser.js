@@ -3,6 +3,7 @@ import Layout from './Dashboard/Layout';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import BASE_URL from '@/public/config';
+import Navbar from './Navbar';
 
 const TrackingUser = () => {
     const [open, setOpen] = useState(false);
@@ -42,11 +43,14 @@ const TrackingUser = () => {
         });
     };
 
-
-
-
     return (
-        <Layout>
+        <>
+            <Navbar />
+            <hr />
+            <br />
+            <br />
+            <br />
+            <br />
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                     <Transition.Child
@@ -200,11 +204,10 @@ const TrackingUser = () => {
                         Track Another Order
                     </button>
                 </div>
-            </> : <><h1>Wanna Track Your Order?</h1> <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpen(true)}>
+            </> : <div className='text-center'><h1 className='text-black'>Wanna Track Your Order?</h1> <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setOpen(true)}>
                 Start Tracking
-            </button></>}
-
-        </Layout>
+            </button></div>}
+        </>
     )
 }
 
