@@ -34,7 +34,7 @@ export default function Navbar() {
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Courier</span>
                             <img
-                                className="h-16` w-auto"
+                                className="h-16` w-auto image_optimised"
                                 src="/courierlogo.jpeg"
                                 alt=""
                             />
@@ -82,7 +82,7 @@ export default function Navbar() {
                                 <span className="sr-only">Your Company</span>
                                 <img
                                     className="h-8 w-auto"
-                                    src="/courierlogo.jpeg"
+                                    src="/courierlogo.jpeg image_optimised"
                                     alt=""
                                 />
                             </a>

@@ -181,6 +181,10 @@ a {
   font-weight: 600;
 }
 
+.image_optimised{
+  width: 20%;;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
