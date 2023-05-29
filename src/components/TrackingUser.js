@@ -21,12 +21,12 @@ const TrackingUser = () => {
         const formDataObj = new FormData();
         formDataObj.append('awb_number', formData.awb_number);
         formDataObj.append('mobile_number', formData.mobile_number);
-        const authToken = localStorage.getItem("accessToken");
+        // const authToken = localStorage.getItem("accessToken");
         const response = await fetch(`${BASE_URL}/users/tracking/AWB/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`,
+                // Authorization: `Bearer ${authToken}`,
             },
             body: formDataObj
         });
