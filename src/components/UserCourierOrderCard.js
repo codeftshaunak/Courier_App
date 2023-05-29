@@ -14,36 +14,39 @@ const riseComplaint = (awb_number) => {
     fetchData();
 }
 
-const downloadData = (awb_number) => {
+const downloadData =async (awb_number) => {
     if (!awb_number) {
         alert("Sorry you can't download this awb number didn't found")
     } else {
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const response = axios.get(`${BASE_URL}/users/barcode-qr-code/${awb_number}/`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                    responseType: 'blob', // Set the response type to blob
-                }
+            const response = await axios.get(
+              `${BASE_URL}/users/barcode-qr-code/${awb_number}/`,
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+                responseType: 'blob', // Set the response type to blob
+              }
             );
-            const blob = new Blob([response.data], { type: 'text/csv' });
+          
+            const blob = new Blob([response.data], { type: 'application/zip' });
+          
             // Create a download link
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = 'data.csv';
-
+            downloadLink.download = 'data.zip';
+          
             // Programmatically trigger a click event on the download link
             downloadLink.click();
-
+          
             // Clean up
             URL.revokeObjectURL(downloadLink.href);
             downloadLink.remove();
-        } catch (error) {
-            console.log(error);
-        }
-
+          } catch (error) {
+            // Handle error
+            console.error('Error downloading ZIP file:', error);
+          }          
     }
 
 }

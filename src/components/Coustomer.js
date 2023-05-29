@@ -60,7 +60,7 @@ const Coustomer = () => {
             setCoustomers(data.results)
         };
         fetchData();
-    }, [coustomers]);
+    }, []);
 
 
     //Handle Edit Customer

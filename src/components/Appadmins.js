@@ -125,16 +125,6 @@ const Appadmins = () => {
         <AdminDashboard>
             <div className='flex justify-around flex-col'>
                 <form onSubmit={handleSubmit} className="mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
-                    {/* <div className="mb-4">
-                        <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Order Type:</label>
-                        <input
-                            type="text"
-                            id="orderType"
-                            defaultValue={orderType}
-                            onChange={(e) => setOrderType(e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div> */}
                     <div className="mb-4">
                         <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Type:</label>
                         <select name="order_type" id="status" className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -190,40 +180,46 @@ const Appadmins = () => {
                     <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
                         <thead className='text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400'>
                             <tr>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     Order Type
                                 </th>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     Awb number
                                 </th>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     destination
                                 </th>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     Courier Company
                                 </th>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     Status
                                 </th>
-                                <th scope='col' className='text-center px-6 py-3 rounded-r-lg'>
+                                <th scope='col' className='text-center px-6 py-3'>
                                     Update
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {orderData?.map((data) => {
-                                return <>
-                                    <tr key={data.awb_number}>
-                                        <th className="text-center">{data.order_type}</th>
-                                        <th className="text-center">{data.awb_number}</th>
-                                        <th className="text-center">{data.destination}</th>
-                                        <th className="text-center">{data.courier_company}</th>
-                                        <th className="text-center">{data.status}</th>
-                                        <button onClick={() => handleEdit(data.awb_number)} className="text-center">Edit</button>
-                                    </tr>
-                                </>
-                            })}
+                            {orderData?.map((data) => (
+                                <tr key={data.awb_number} className='bg-gray-100 dark:bg-gray-700 dark:text-gray-400 font-bold'>
+                                    <td className="text-center py-3 text-white">{data.order_type}</td>
+                                    <td className="text-center py-3 text-white">{data.awb_number}</td>
+                                    <td className="text-center py-3 text-white">{data.destination}</td>
+                                    <td className="text-center py-3 text-white">{data.courier_company}</td>
+                                    <td className="text-center py-3 text-white">{data.status}</td>
+                                    <td className="text-center py-3 text-white">
+                                        <button
+                                            onClick={() => handleEdit(data.awb_number)}
+                                            className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded focus:outline-none"
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
+
                     </table>
                 </div>
             </div>

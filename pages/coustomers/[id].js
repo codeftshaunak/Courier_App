@@ -52,78 +52,47 @@ const EditCustomer = () => {
         setCustomer({ ...customer, [name]: value });
     };
 
+    console.log(data);
+
     return (
         <AppadminLayout>
-            {/* <h1>Edit Customer - {data.email}</h1>
-            <div className="flex space-x-4">
-                <form onSubmit={handleSubmit}>
-                    <div className="relative">
-                        <label htmlFor="#">VERIFIED</label>
-                        <br />
-                        <select
-                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            id="user-verified"
-                            name="is_verified"
-                            defaultValue={data.is_verified}
-                            onChange={handleInputChange}
-                        >
-                            <option disabled>Select Any Option</option>
-                            <option value="true">Verified</option>
-                            <option value="False">Unverified</option>
-                        </select>
-                        <br />
-                        <label htmlFor="#">STATUS</label>
-                        <select
-                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            id="status"
-                            name="is_active"
-                            defaultValue={data.is_active}
-                            onChange={handleInputChange}
-                        >
-                            <option disabled>Select Any Option</option>
-                            <option value="true">Active</option>
-                            <option value="false">Inactive</option>
-                        </select>
-                        <br />
-                        <button type="submit">Update</button>
-                    </div>
-                </form>
-            </div> */}
-            <h1 className="text-2xl font-bold mb-4">Edit Customer - {data.email}</h1>
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-4 justify-around">
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="relative">
-                        <label htmlFor="user-verified" className="text-gray-700">
-                            VERIFIED
-                        </label>
-                        <br />
-                        <select
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            id="user-verified"
-                            name="is_verified"
-                            defaultValue={data.is_verified}
-                            onChange={handleInputChange}
-                        >
-                            <option disabled>Select Any Option</option>
-                            <option value="true">Verified</option>
-                            <option value="False">Unverified</option>
-                        </select>
-                        <br />
-                        <label htmlFor="status" className="text-gray-700">
-                            STATUS
-                        </label>
-                        <select
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            id="status"
-                            name="is_active"
-                            defaultValue={data.is_active}
-                            onChange={handleInputChange}
-                        >
-                            <option disabled>Select Any Option</option>
-                            <option value="true">Active</option>
-                            <option value="false">Inactive</option>
-                        </select>
-                        <br />
+                    <div className="bg-white p-4 rounded-lg shadow-md w-96">
+                        <h1 className="text-black text-lg font-bold">Update Status</h1>
+                        <div className="mb-4">
+                            <label htmlFor="user-verified" className="text-gray-700 font-semibold">
+                                VERIFIED
+                            </label>
+                            <br />
+                            <select
+                                className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                id="user-verified"
+                                name="is_verified"
+                                defaultValue={data.is_verified}
+                                onChange={handleInputChange}
+                            >
+                                <option disabled>Select any option</option>
+                                <option value="true">Verified</option>
+                                <option value="false">Unverified</option>
+                            </select>
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="status" className="text-gray-700 font-semibold">
+                                STATUS
+                            </label>
+                            <select
+                                className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                id="status"
+                                name="is_active"
+                                defaultValue={data.is_active}
+                                onChange={handleInputChange}
+                            >
+                                <option disabled>Select any option</option>
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
                         <button
                             type="submit"
                             className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
@@ -132,8 +101,46 @@ const EditCustomer = () => {
                         </button>
                     </div>
                 </form>
+                <div className="bg-white p-4 rounded-lg shadow-md w-96">
+                    <h1 className="text-black text-lg font-bold">Customer Details</h1>
+                    <div className="photo">
+                        <h1 className="text-black">Profile:</h1>
+                        <img
+                            src={data?.customer?.Photo}
+                            alt="photo"
+                            className="rounded-full w-24 h-24 object-cover mx-auto mb-4"
+                        />
+                    </div>
+
+                    <div className="id_proof">
+                        <h1 className="text-black">ID Proof:</h1>
+                        <img
+                            src={data?.customer?.ID_proof}
+                            alt=""
+                            className="w-24 h-24 object-cover mx-auto mb-4"
+                        />
+                    </div>
+
+                    <div className="text-lg text-gray-800 mb-2">
+                        <b> Name:</b>
+                        {data?.first_name} {data?.last_name}
+                    </div>
+                    <div className="text-lg  text-gray-800 mb-2">
+                        <b>Email:</b>   {data?.email}
+                    </div>
+                    <div className="text-lg text-gray-800 mb-2">
+                        <b> Address: </b>{data?.customer?.address_line1}/{data?.customer?.address_line2}
+                    </div>
+                    <div className="text-lg  text-gray-800 mb-2">
+                        <b>Address PIN:</b>  {data?.customer?.address_pincode}
+                    </div>
+                    <div className="text-lg text-gray-800 mb-2">
+                        <b>Company Name:</b>  {data?.customer?.company_name}
+                    </div>
+                </div>
             </div>
         </AppadminLayout>
+
     );
 };
 
