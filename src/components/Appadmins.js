@@ -53,6 +53,56 @@ const Appadmins = () => {
             console.log(error)
         }
     };
+    const csvDownload = async (e) => {
+        e.preventDefault();
+
+        try {
+            const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
+
+            const params = {};
+
+            if (orderType) {
+                params['order_type'] = orderType;
+            }
+
+            if (orderAwbNumber) {
+                params['awb_number'] = orderAwbNumber;
+            }
+
+            if (orderCourierCompany) {
+                params['courier_company'] = orderCourierCompany;
+            }
+
+            if (orderCourierStatus) {
+                params['status'] = orderCourierStatus;
+            }
+
+            const queryString = new URLSearchParams(params).toString();
+
+
+            const response = await axios.get(`${BASE_URL}/appadmins/api/orders/csv-download/?${queryString}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                responseType: 'blob',
+            });
+            const blob = new Blob([response.data], { type: 'text/csv' });
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'data.csv';
+
+            // Programmatically trigger a click event on the download link
+            downloadLink.click();
+
+            // Clean up
+            URL.revokeObjectURL(downloadLink.href);
+            downloadLink.remove();
+            console.log(response);
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     const handleEdit = (id) => {
         router.push(`/appadmins/${id}`);
@@ -131,6 +181,9 @@ const Appadmins = () => {
                         Search
                     </button>
                 </form>
+                <button onClick={(e) => csvDownload(e)} className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
+                    Download Csv
+                </button>
                 <br />
 
                 <div className='relative overflow-x-auto'>

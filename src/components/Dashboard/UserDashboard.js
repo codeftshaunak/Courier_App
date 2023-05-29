@@ -2,8 +2,12 @@ import BASE_URL from '@/public/config';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import HeroDashbord from './HeroDashbord';
+import { useRouter } from 'next/router';
+
 
 const UserDashboard = () => {
+    const router = useRouter();
+
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [userData, setUserData] = useState([]);
@@ -83,10 +87,20 @@ const UserDashboard = () => {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
-                setUserData(response.data);
-                console.log(response);
+                if (response.status === 200) {
+                    setUserData(response.data);
+                } else if (response.status === 401) {
+                    alert("Your Login Time Expire Kindly Login Again");
+                    router.push('/signin');
+
+                }
+
             } catch (error) {
-                console.log(error)
+                if (error.response.data.code == 'token_not_valid') {
+                    router.push('/signin');
+                    // alert("Your Login Time Expire Kindly Login Again");
+                }
+                console.log(error?.response.data.code)
             }
         }
         fetchData();

@@ -265,6 +265,9 @@ const UserCourierOrder = () => {
                         <th scope="col" className="px-6 py-3 rounded-r-lg">
                             Edit Data
                         </th>
+                        <th scope="col" className="px-6 py-3 rounded-r-lg">
+                            Download
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -278,7 +281,7 @@ const UserCourierOrder = () => {
             </table>
             <br />
 
-            <button type="submit" onClick={()=>setOpen(true)} className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+            <button type="submit" onClick={() => setOpen(true)} className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
                 Add A New Order
             </button>
 

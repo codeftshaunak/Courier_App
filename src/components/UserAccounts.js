@@ -11,7 +11,7 @@ const UserAccounts = () => {
     const [orderAwbNumber, setOrderAwbNumber] = useState('');
     // const [orderCourierCompany, setOrderCourierCompany] = useState('');
     // const [orderCourierStatus, setOrderCourierStatus] = useState('');
-
+console.log(userAccount);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

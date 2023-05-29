@@ -6,14 +6,13 @@ export default function HeroDashbord({ userData }) {
     const [complaintsList, setComplaintsList] = useState([]);
     const [orderStatus, setOrderStatus] = useState([]);
 
-    console.log(accountList);
     useEffect(() => {
         setAccountList(userData?.accounts);
         setOrderList(userData?.orders);
         setComplaintsList(userData?.complaints);
         setOrderStatus(userData?.orders_status);
     }, [userData])
-    console.log(userData);
+
     return (
         <div>
             <div className="h-full flex flex-col py-5">

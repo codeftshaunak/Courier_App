@@ -1,4 +1,7 @@
+import { headers } from "@/next.config";
+import BASE_URL from "@/public/config";
 import { RiseComplaint } from "@/utils/api";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import "tailwindcss/tailwind.css";
@@ -9,6 +12,40 @@ const riseComplaint = (awb_number) => {
         alert(data?.success)
     }
     fetchData();
+}
+
+const downloadData = (awb_number) => {
+    if (!awb_number) {
+        alert("Sorry you can't download this awb number didn't found")
+    } else {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = axios.get(`${BASE_URL}/users/barcode-qr-code/${awb_number}/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                    responseType: 'blob', // Set the response type to blob
+                }
+            );
+            const blob = new Blob([response.data], { type: 'text/csv' });
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'data.csv';
+
+            // Programmatically trigger a click event on the download link
+            downloadLink.click();
+
+            // Clean up
+            URL.revokeObjectURL(downloadLink.href);
+            downloadLink.remove();
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 }
 
 
@@ -42,6 +79,12 @@ const UserCourierOrderCard = ({ data }) => {
                     Edit
                 </button>
             </th>
+            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center" onClick={() => downloadData(awb_number)}>
+                    Download
+                </button>
+            </th>
+
         </tr>
     );
 };
