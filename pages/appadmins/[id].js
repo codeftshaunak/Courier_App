@@ -13,12 +13,14 @@ const EditOrder = () => {
         order_type: '',
         destination: '',
         destination_pincode: '',
+        bar_code: null,
+        qr_code: null,
         Image: null
     });
 
     const [data, setData] = useState([]);
 
-    const { courier_company, status, shipment_date, order_type, destination, destination_pincode } = data;
+    const { courier_company, status, shipment_date, order_type, destination, destination_pincode, bar_code, qr_code } = data;
     console.log(order_type);
     console.log(formData.order_type);
     useEffect(() => {
@@ -78,6 +80,11 @@ const EditOrder = () => {
             }
             return { ...prevData, [name]: value };
         });
+    };
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     //Handle Image Change
@@ -174,6 +181,52 @@ const EditOrder = () => {
                         onChange={handleChange}
                         className="border border-gray-300 rounded px-3 py-2 w-full"
                     />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="destination_pincode" className="block font-medium mb-1">
+                        Qr_code
+                    </label>
+                    <select
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        id="status"
+                        name="is_active"
+                        defaultValue={qr_code}
+                        onChange={handleInputChange}
+                    >
+                        {
+                            qr_code ? <>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </> : <>
+                                <option value="false">False</option>
+                                <option value="true">True</option>
+                            </>
+                        }
+
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="destination_pincode" className="block font-medium mb-1">
+                        Qr_code
+                    </label>
+                    <select
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        id="status"
+                        name="is_active"
+                        defaultValue={bar_code}
+                        onChange={handleInputChange}
+                    >
+                        {
+                            bar_code ? <>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </> : <>
+                                <option value="false">False</option>
+                                <option value="true">True</option>
+                            </>
+                        }
+
+                    </select>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="image" className="block font-medium mb-1">
