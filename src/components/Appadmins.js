@@ -53,6 +53,17 @@ const Appadmins = () => {
             console.log(error)
         }
     };
+
+    //Clear Search
+    const clearSearch=(e)=>{
+        setOrderAwbNumber('');
+        setOrderCourierCompany('');
+        setOrderCourierStatus('');
+        setOrderType('');
+        handleSubmit(e);
+    }
+
+    //Csv Download
     const csvDownload = async (e) => {
         e.preventDefault();
 
@@ -169,6 +180,9 @@ const Appadmins = () => {
                     </div>
                     <button type="submit" className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
                         Search
+                    </button>
+                    <button onClick={(e)=>clearSearch(e)} className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
+                        Clear
                     </button>
                 </form>
                 <button onClick={(e) => csvDownload(e)} className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">

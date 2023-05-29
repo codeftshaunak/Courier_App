@@ -110,6 +110,14 @@ const Account = () => {
         setOrderCourierStatus(value);
     };
 
+    const clearSearch = (e) => {
+        setOrderAwbNumber('');
+        setOrderCourierCompany('');
+        setOrderCourierStatus('');
+        setOrderType('');
+        handleSubmit(e);
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await usersList();
@@ -150,7 +158,7 @@ const Account = () => {
                     <input
                         type="text"
                         id="orderAwbNumber"
-                        defaultValue={orderAwbNumber}
+                        value={orderAwbNumber}
                         onChange={(e) => setOrderAwbNumber(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -160,15 +168,15 @@ const Account = () => {
                     <input
                         type="text"
                         id="orderCourierCompany"
-                        defaultValue={orderCourierCompany}
+                        value={orderCourierCompany}
                         onChange={(e) => setOrderCourierCompany(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Type:</label>
+                    <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Status:</label>
                     <select name="order_type" id="status" className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onChange={handleChangeType}
+                        onChange={handleChangeStatus}
                     >
                         <option value="preparing">Preparing</option>
                         <option value="manifested">Manifested</option>
@@ -181,7 +189,11 @@ const Account = () => {
                 <button type="submit" className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
                     Search
                 </button>
+                <button onClick={(e) => clearSearch(e)} className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
+                    Clear
+                </button>
             </form>
+
             <br />
             <button className="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={(e) => downloadCsv(e)}>
                 Download CSV

@@ -53,6 +53,14 @@ const Coustomer = () => {
         }));
     };
 
+    //Clear Search
+    const clearSearch = (e) => {
+        e.preventDefault()
+        setIdname('');
+        setCourierCompany('');
+        setUsersname('');
+        handleSubmitFilter(e);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -168,7 +176,7 @@ const Coustomer = () => {
                     <input
                         type="text"
                         id="company_name"
-                        defaultValue={courierCompany}
+                        value={courierCompany}
                         onChange={(e) => setCourierCompany(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -178,7 +186,7 @@ const Coustomer = () => {
                     <input
                         type="text"
                         id="id"
-                        defaultValue={idname}
+                        value={idname}
                         onChange={(e) => setIdname(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -188,7 +196,7 @@ const Coustomer = () => {
                     <input
                         type="text"
                         id="username"
-                        defaultValue={usersname}
+                        value={usersname}
                         onChange={(e) => setUsersname(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -196,7 +204,11 @@ const Coustomer = () => {
                 <button type="submit" className="w-auto h-7 px-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
                     Search
                 </button>
+                <button onClick={(e) => clearSearch(e)} className="w-auto h-7 px-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
+                    Clear
+                </button>
             </form>
+
 
             <br />
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
