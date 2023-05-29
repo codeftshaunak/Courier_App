@@ -71,10 +71,14 @@ const EditCustomer = () => {
                                 name="is_verified"
                                 defaultValue={data.is_verified}
                                 onChange={handleInputChange}
-                            >
-                                <option disabled>Select any option</option>
-                                <option value="true">Verified</option>
-                                <option value="false">Unverified</option>
+                            >{
+                                    data.is_verified ? <><option value="true">Verified</option>
+                                        <option value="false">Unverified</option></> : <>
+                                        <option value="false">Unverified</option>
+                                        <option value="true">Verified</option>
+                                    </>
+                                }
+
                             </select>
                         </div>
                         <div className="mb-4">
@@ -88,9 +92,16 @@ const EditCustomer = () => {
                                 defaultValue={data.is_active}
                                 onChange={handleInputChange}
                             >
-                                <option disabled>Select any option</option>
-                                <option value="true">Active</option>
-                                <option value="false">Inactive</option>
+                                {
+                                    data.is_active ? <>
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </> : <>
+                                        <option value="false">Inactive</option>
+                                        <option value="true">Active</option>
+                                    </>
+                                }
+
                             </select>
                         </div>
                         <button

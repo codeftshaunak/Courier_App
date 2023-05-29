@@ -110,6 +110,14 @@ const UserCourierOrder = () => {
         }
     };
 
+    const clearSearch = (e) => {
+        setOrderAwbNumber('');
+        setOrderCourierCompany('');
+        setOrderCourierStatus('');
+        setOrderType('');
+        handleSubmitSearch(e);
+    }
+
     const downloadCsv = async (e) => {
         e.preventDefault();
 
@@ -233,6 +241,9 @@ const UserCourierOrder = () => {
                 </div>
                 <button type="submit" className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
                     Search
+                </button>
+                <button onSubmit={(e) => clearSearch(e)} className="w-auto h-7 px-5 py-5 items-center flex justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 ml-3">
+                    Clear
                 </button>
             </form>
             <br />

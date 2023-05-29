@@ -1,41 +1,22 @@
-import { ResolveComplaint, resolveComplaint, userAccounts } from '@/utils/api';
+import { userAccounts } from '@/utils/api';
 import React, { useEffect, useState } from 'react'
 import Layout from './Dashboard/Layout';
-import SearchAccount from './SearchAccount';
 import BASE_URL from '@/public/config';
 import axios from 'axios';
 
 const UserAccounts = () => {
     const [userAccount, setUserAccount] = useState([]);
-    // const [orderType, setOrderType] = useState('');
     const [orderAwbNumber, setOrderAwbNumber] = useState('');
-    // const [orderCourierCompany, setOrderCourierCompany] = useState('');
-    // const [orderCourierStatus, setOrderCourierStatus] = useState('');
-console.log(userAccount);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const accessToken = localStorage.getItem('accessToken'); 
+            const accessToken = localStorage.getItem('accessToken');
             const params = {};
-
-            // if (orderType) {
-            //     params['order__order_type'] = orderType;
-            // }
-
             if (orderAwbNumber) {
                 params['order__awb_number'] = orderAwbNumber;
             }
-
-            // if (orderCourierCompany) {
-            //     params['order__courier_company'] = orderCourierCompany;
-            // }
-
-            // if (orderCourierStatus) {
-            //     params['order__status'] = orderCourierStatus;
-            // }
-
             const response = await axios.get(`${BASE_URL}/users/api/accounts/`, {
                 params,
                 headers: {
@@ -53,24 +34,10 @@ console.log(userAccount);
 
         try {
             const accessToken = localStorage.getItem('accessToken'); // Replace with your actual access token
-
             const params = {};
-
-            // if (orderType) {
-            //     params['order__order_type'] = orderType;
-            // }
-
             if (orderAwbNumber) {
                 params['order__awb_number'] = orderAwbNumber;
             }
-
-            // if (orderCourierCompany) {
-            //     params['order__courier_company'] = orderCourierCompany;
-            // }
-
-            // if (orderCourierStatus) {
-            //     params['order__status'] = orderCourierStatus;
-            // }
             const queryString = new URLSearchParams(params).toString();
 
             const response = await axios.get(`${BASE_URL}/users/api/accounts/csv?${queryString}`, {
@@ -99,7 +66,11 @@ console.log(userAccount);
 
     };
 
-
+    const clearSearch = (e) => {
+        e.preventDefault();
+        setOrderAwbNumber('');
+        handleSubmit(e);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -114,16 +85,6 @@ console.log(userAccount);
     return (
         <Layout>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
-                {/* <div className="mb-4">
-                    <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Order Type:</label>
-                    <input
-                        type="text"
-                        id="orderType"
-                        defaultValue={orderType}
-                        onChange={(e) => setOrderType(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div> */}
                 <div className="mb-4">
                     <label htmlFor="orderAwbNumber" className="block mb-2 font-medium text-gray-700">Order AWB Number:</label>
                     <input
@@ -134,28 +95,11 @@ console.log(userAccount);
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                {/* <div className="mb-4">
-                    <label htmlFor="orderCourierCompany" className="block mb-2 font-medium text-gray-700">Order Courier Company:</label>
-                    <input
-                        type="text"
-                        id="orderCourierCompany"
-                        defaultValue={orderCourierCompany}
-                        onChange={(e) => setOrderCourierCompany(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div> */}
-                {/* <div className="mb-4">
-                    <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Status:</label>
-                    <input
-                        type="text"
-                        id="orderCourierStatus"
-                        defaultValue={orderCourierStatus}
-                        onChange={(e) => setOrderCourierStatus(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div> */}
-                <button type="submit" className="h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                <button type="submit" className="ml-2 h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
                     Search
+                </button>
+                <button onSubmit={(e) => clearSearch(e)} className="ml-2 h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                    Clear
                 </button>
             </form>
             <br />
