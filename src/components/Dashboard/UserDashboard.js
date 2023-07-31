@@ -108,6 +108,15 @@ const UserDashboard = () => {
 
     return (
         <div>
+            <div className="flex flex-col w-60">
+                <button type="submit" className="ml-2 h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4" onClick={(e) => alert("API Key Required")}>
+                    Create order for delhivery
+                </button>
+                <button onClick={(e) => alert("API Key Required")} className="ml-2 h-9 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                    Edit order for delhivery
+                </button>
+            </div>
+
             <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
                 <div className="mb-4 items-center">
                     <label htmlFor="startDate" className="block mr-2 font-medium text-gray-700">Start Date:</label>

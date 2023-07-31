@@ -27,7 +27,11 @@ const Appadmins = () => {
             const params = {};
 
             if (orderType) {
-                params['order_type'] = orderType;
+                if(orderType=='third_party'){
+                    alert('api key is required')
+                }else{
+                    params['order_type'] = orderType;
+                }
             }
 
             if (orderAwbNumber) {
