@@ -134,16 +134,6 @@ const Account = () => {
             <br />
             <br />
             <form onSubmit={handleSubmit} className="mx-auto p-4 bg-white shadow-md rounded-md flex justify-center items-center">
-                {/* <div className="mb-4">
-                    <label htmlFor="orderType" className="block mb-2 font-medium text-gray-700">Order Type:</label>
-                    <input
-                        type="text"
-                        id="orderType"
-                        defaultValue={orderType}
-                        onChange={(e) => setOrderType(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div> */}
                 <div className="mb-4">
                     <label htmlFor="orderCourierStatus" className="block mb-2 font-medium text-gray-700">Order Type:</label>
                     <select name="order_type" id="status" className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
